@@ -62,17 +62,6 @@ type ProductType = {
   location: string;
 };
 
-const usefullProductsKeys = (products: ProductType[]): ProductCardType[] =>
-  products.map((product) => ({
-    _id: product._id,
-    id: Number(product.idMeal),
-    title: product.strMeal,
-    price: product.price,
-    category: product.strCategory,
-    image: product.strMealPreview,
-    location: product.location,
-  }));
-
 type GetProductsType = {
   totalProducts: number;
   products: ProductCardType[];
@@ -105,6 +94,45 @@ export const getProducts = async (
   const { totalProducts, productsRaw } = response;
   const products = usefullProductsKeys(productsRaw);
   return { totalProducts, products };
+};
+
+export const getUserProducts = async (userId: string, params: any) => {
+  const urlSearchParams = new URLSearchParams(
+    params as Record<string, string>
+  ).toString();
+  const queryParams = urlSearchParams ? `?${urlSearchParams}` : "";
+  const promise = await fetch(
+    `${API_URL}/products/user/${userId}${queryParams}`
+  );
+  const response = await promise.json();
+  const { totalProducts, productsRaw } = response;
+  const products = usefullProductsKeys(productsRaw);
+  return { totalProducts, products };
+};
+
+const usefullProductKeys = (product: ProductType): ProductCardType => {
+  return {
+    _id: product._id,
+    id: Number(product.idMeal),
+    title: product.strMeal,
+    price: product.price,
+    category: product.strCategory,
+    image: product.strMealPreview,
+    imageThumb: product.strMealThumb,
+    location: product.location,
+  };
+};
+
+const usefullProductsKeys = (products: ProductType[]): ProductCardType[] => {
+  return products.map(usefullProductKeys);
+};
+
+export const getProductById = async (productId: string) => {
+  const response = await fetch(`${API_URL}/product/${productId}`);
+  const productRaw: any = await response.json();
+  const { user } = productRaw;
+  const product = usefullProductKeys(productRaw);
+  return { product, user };
 };
 
 type Categories =
@@ -144,21 +172,11 @@ export const createProduct = async (params: any) => {
   const urlSearchParams = new URLSearchParams(
     params as Record<string, string>
   ).toString();
-
   const queryParams = urlSearchParams ? `?${urlSearchParams}` : "";
-  /* console.log("createProduct");
-  console.log("createProduct queryParams", queryParams);
-  console.log("createProduct params", params);
-  console.log("createProduct urlSearchParams", urlSearchParams); */
-
   const promise = await fetch(`${API_URL}/product/new${queryParams}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   });
-
   const status: CreateProductResponse = await promise.json();
-  //const status = 200;
-  console.log("status", status);
-
   return status;
 };

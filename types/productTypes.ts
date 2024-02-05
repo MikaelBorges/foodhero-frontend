@@ -5,5 +5,6 @@ export type ProductCardType = {
   price: number;
   category: string;
   image: string;
+  imageThumb: string;
   location: string;
 };

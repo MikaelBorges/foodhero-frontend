@@ -1,4 +1,8 @@
 "use client";
+import { useGetUserProducts } from "@/hooks/productsHooks";
+import { ProductCard } from "@/components/productCard/productCard";
+import { BackButton } from "@/components/buttons/backButton/backButton";
+import { Loader2 } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -8,16 +12,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useGetProducts } from "@/hooks/productsHooks";
-import { Loader2 } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { ProductCard } from "../productCard/productCard";
 
-export function ProductList() {
+export default function UserProductsPage() {
+  const { data, isLoading, isError } = useGetUserProducts();
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
-  const { data, isLoading, isError } = useGetProducts();
   const pageParams = params.page ? Number(params.page) : 1;
   const rangeParams = params.range ? Number(params.range) : 10;
   const totalPages = data?.totalProducts
@@ -26,14 +28,10 @@ export function ProductList() {
 
   return (
     <>
+      <BackButton />
+      <h1>UserProductsPage</h1>
       {Boolean(data?.totalProducts) && (
-        <p className="text-sm">{data?.totalProducts} annonces(s) trouvée(s)</p>
-      )}
-      {isLoading && <Loader2 className="animate-spin m-auto" />}
-      {isError && (
-        <p className="text-red-500 text-sm">
-          Erreur lors de la récupération des produits
-        </p>
+        <p className="text-sm">{data?.totalProducts} annonces(s)</p>
       )}
       {data?.products && !isLoading && !isError && (
         <ul className="grid gap-3 grid-cols-1 w-full">
@@ -43,7 +41,13 @@ export function ProductList() {
         </ul>
       )}
       {!data?.totalProducts && !isLoading && !isError && (
-        <p className="text-sm">Aucun produit ne correspond à vos critères</p>
+        <p className="text-sm">Pas d&apos;annonces</p>
+      )}
+      {isLoading && <Loader2 className="animate-spin m-auto" />}
+      {isError && (
+        <p className="text-red-500 text-sm">
+          Erreur lors de la récupération des annonces de l&paos;utilisateur
+        </p>
       )}
       {Boolean(data?.totalProducts) && (
         <Pagination>
