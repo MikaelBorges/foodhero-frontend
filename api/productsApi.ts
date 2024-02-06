@@ -105,9 +105,9 @@ export const getUserProducts = async (userId: string, params: any) => {
     `${API_URL}/products/user/${userId}${queryParams}`
   );
   const response = await promise.json();
-  const { totalProducts, productsRaw } = response;
+  const { totalProducts, productsRaw, firstname } = response;
   const products = usefullProductsKeys(productsRaw);
-  return { totalProducts, products };
+  return { totalProducts, products, firstname };
 };
 
 const usefullProductKeys = (product: ProductType): ProductCardType => {
@@ -156,27 +156,20 @@ export const getCategories = async (): Promise<Categories[]> => {
   return await response.json();
 };
 
-export type CreateProductParams = {
-  title: string;
-  location: string;
-  price: string;
-  category: string;
-};
-
-type CreateProductResponse = {
-  status: number;
-};
-
 export const createProduct = async (params: any) => {
   params.userId = "65bfa48aa82dcb1961c7f5e2";
   const urlSearchParams = new URLSearchParams(
     params as Record<string, string>
   ).toString();
   const queryParams = urlSearchParams ? `?${urlSearchParams}` : "";
-  const promise = await fetch(`${API_URL}/product/new${queryParams}`, {
+  const response = await fetch(`${API_URL}/product/new${queryParams}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   });
-  const status: CreateProductResponse = await promise.json();
-  return status;
+  const productIdCreated: number = await response.json();
+  return productIdCreated;
 };
+
+/* export const deleteProduct = (productId: string) => {
+  return 2353;
+}; */

@@ -29,7 +29,7 @@ export default function UserProductsPage() {
   return (
     <>
       <BackButton />
-      <h1>UserProductsPage</h1>
+      {data?.firstname && <h1>Annonce(s) de {data.firstname}</h1>}
       {Boolean(data?.totalProducts) && (
         <p className="text-sm">{data?.totalProducts} annonces(s)</p>
       )}

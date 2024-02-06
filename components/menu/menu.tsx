@@ -6,9 +6,17 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Menu as BurgerMenu, Laptop, Moon, Sun } from "lucide-react";
+import {
+  Menu as BurgerMenu,
+  Laptop,
+  Moon,
+  Sun,
+  CircleUserRound,
+} from "lucide-react";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import { useState } from "react";
 
 export function Menu() {
@@ -31,6 +39,17 @@ export function Menu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
+          <Link
+            href="/user/65bfa48aa82dcb1961c7f5e2"
+            className="flex gap-2 items-center"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <CircleUserRound className="h-4 w-4" />
+            <span className="capitalize">Utilisateur</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuLabel>Thème</DropdownMenuLabel>
         <DropdownMenuItem onClick={() => setTheme("light")}>
           <Sun className="mr-2 h-4 w-4" />

@@ -30,7 +30,7 @@ export function ProductCard({
   const price = numeral(rawPrice).format("0,0.00");
 
   return (
-    <Link href={`/product/${_id}`}>
+    <Link href={`/product/${_id}`} className="w-full">
       <Card
         className={cn("bg-secondary flex overflow-hidden h-40", className)}
         {...props}
