@@ -21,18 +21,17 @@ export const useGetProductById = () => {
 
 export const useGetUserProducts = () => {
   const { userId } = useParams();
-  const searchParams = useSearchParams();
-  const params = Object.fromEntries(searchParams);
 
   return useQuery({
-    queryFn: () => getUserProducts(userId as string, params),
-    queryKey: ["userProducts", userId, params],
+    queryFn: () => getUserProducts(userId as string),
+    queryKey: ["userProducts", userId],
   });
 };
 
 export const useGetProducts = () => {
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
+  if (!Object.keys(params).length) params.sort = "desc";
 
   return useQuery({
     queryFn: () => getProducts(params),
@@ -59,7 +58,8 @@ export const useCreateProduct = () => {
   return useMutation({
     mutationFn: (params: CreateProductParams) => createProduct(params),
     onSuccess: (productIdCreated) => {
-      queryClient.setQueryData(["products"], productIdCreated);
+      //queryClient.setQueryData(["products"], productIdCreated);
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
 };

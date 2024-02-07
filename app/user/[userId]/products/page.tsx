@@ -49,7 +49,7 @@ export default function UserProductsPage() {
           Erreur lors de la récupération des annonces de l&paos;utilisateur
         </p>
       )}
-      {Boolean(data?.totalProducts) && (
+      {Boolean(totalPages > 1) && (
         <Pagination>
           <PaginationContent>
             <PaginationItem>

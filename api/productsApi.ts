@@ -96,14 +96,8 @@ export const getProducts = async (
   return { totalProducts, products };
 };
 
-export const getUserProducts = async (userId: string, params: any) => {
-  const urlSearchParams = new URLSearchParams(
-    params as Record<string, string>
-  ).toString();
-  const queryParams = urlSearchParams ? `?${urlSearchParams}` : "";
-  const promise = await fetch(
-    `${API_URL}/products/user/${userId}${queryParams}`
-  );
+export const getUserProducts = async (userId: string) => {
+  const promise = await fetch(`${API_URL}/products/user/${userId}`);
   const response = await promise.json();
   const { totalProducts, productsRaw, firstname } = response;
   const products = usefullProductsKeys(productsRaw);

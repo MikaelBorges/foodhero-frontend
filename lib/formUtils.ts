@@ -4,7 +4,6 @@ type FiltersType = {
 
 export const removeEmptyValues = (values: FiltersType) => {
   const cleanedValues: FiltersType = {};
-
   for (const [key, value] of Object.entries(values)) {
     if (
       value !== "" &&
@@ -14,6 +13,5 @@ export const removeEmptyValues = (values: FiltersType) => {
       cleanedValues[key] = value;
     }
   }
-
   return cleanedValues;
 };

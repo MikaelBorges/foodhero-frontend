@@ -45,7 +45,7 @@ export function ProductList() {
       {!data?.totalProducts && !isLoading && !isError && (
         <p className="text-sm">Aucun produit ne correspond à vos critères</p>
       )}
-      {Boolean(data?.totalProducts) && (
+      {Boolean(totalPages > 1) && (
         <Pagination>
           <PaginationContent>
             <PaginationItem>

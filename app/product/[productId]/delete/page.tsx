@@ -29,7 +29,7 @@ export default function DeleteProductPage() {
           onClick={() => console.log("supprimer annonce")}
           variant="destructive"
         >
-          Supprimer
+          Oui supprimer
         </Button>
       </div>
     </>

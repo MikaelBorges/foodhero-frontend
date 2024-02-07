@@ -51,15 +51,24 @@ export function Menu() {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Thème</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => setTheme("light")}
+        >
           <Sun className="mr-2 h-4 w-4" />
           <span>Clair</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => setTheme("dark")}
+        >
           <Moon className="mr-2 h-4 w-4" />
           <span>Sombre</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => setTheme("system")}
+        >
           <Laptop className="mr-2 h-4 w-4" />
           <span>Système</span>
         </DropdownMenuItem>
