@@ -5,7 +5,7 @@ import {
   getUserProducts,
   getProductById,
   deleteProduct,
-  // deleteProduct,
+  updateProduct,
 } from "@/api/productsApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -53,6 +53,18 @@ type CreateProductParams = {
   category: string;
 };
 
+export const useDeleteProduct = () => {
+  const { productId } = useParams();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => deleteProduct(productId as string),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
+};
+
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
@@ -64,12 +76,13 @@ export const useCreateProduct = () => {
   });
 };
 
-export const useDeleteProduct = () => {
+export const useUpdateProduct = () => {
   const { productId } = useParams();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => deleteProduct(productId as string),
+    mutationFn: (params: CreateProductParams) =>
+      updateProduct(params, productId as string),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },

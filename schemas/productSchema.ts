@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const newProductSchema = z.object({
+export const productSchema = z.object({
   title: z
     .string()
     .max(30, {

@@ -12,8 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { newProductSchema } from "@/schemas/newProductSchema";
-//import { Input } from "@/components/ui/input";
+import { productSchema } from "@/schemas/productSchema";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { removeEmptyValues } from "@/lib/formUtils";
 import { InputTextNumber } from "@/components/inputTextNumber/inputTextNumber";
@@ -37,8 +36,8 @@ export default function NewProductPage() {
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
 
-  const form = useForm<z.infer<typeof newProductSchema>>({
-    resolver: zodResolver(newProductSchema),
+  const form = useForm<z.infer<typeof productSchema>>({
+    resolver: zodResolver(productSchema),
     defaultValues: {
       title: params.title ? params.title : "",
       location: params.location ? params.location : "",
@@ -47,10 +46,7 @@ export default function NewProductPage() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof newProductSchema>) => {
-    const usefulValues: any = removeEmptyValues(values);
-    mutate(usefulValues);
-  };
+  const onSubmit = (values: z.infer<typeof productSchema>) => mutate(values);
 
   const inputs = [
     {
@@ -85,12 +81,6 @@ export default function NewProductPage() {
               control={form.control}
             />
           ))}
-
-          {(isErrorCategories || isErrorCreateProduct) && (
-            <p className="text-red-500 text-center">
-              Problème dans la soumission de l&apos;annonce
-            </p>
-          )}
 
           {categoriesData && !isLoadingCategories && !isErrorCategories && (
             <FormField
@@ -149,6 +139,12 @@ export default function NewProductPage() {
           </div>
         </form>
       </Form>
+
+      {(isErrorCategories || isErrorCreateProduct) && (
+        <p className="text-red-500 text-center">
+          Problème dans la soumission de l&apos;annonce
+        </p>
+      )}
 
       {isSuccessCreateProduct && (
         <p className="text-green-500 text-center">Annonce bien soumise</p>

@@ -70,6 +70,9 @@ export default function ProductPage() {
                   )}
                 </>
               )}
+              <Link href={`/product/${data.product._id}/update`}>
+                <Button variant="secondary">Modifier</Button>
+              </Link>
               <Link href={`/product/${data.product._id}/delete`}>
                 <Button variant="destructive">Supprimer</Button>
               </Link>

@@ -26,7 +26,12 @@ export function InputTextNumber({
       render={({ field }) => (
         <FormItem className="w-full relative">
           <FormControl>
-            <Input type={type} placeholder={placeholder} {...field} />
+            <Input
+              type={type}
+              placeholder={placeholder}
+              min={type === "number" ? 0 : undefined}
+              {...field}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

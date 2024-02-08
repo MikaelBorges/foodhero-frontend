@@ -150,6 +150,15 @@ export const getCategories = async (): Promise<Categories[]> => {
   return await response.json();
 };
 
+export const deleteProduct = async (productId: string) => {
+  const promise = await fetch(`${API_URL}/product/delete/${productId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+  const productIdDeleted: number = await promise.json();
+  return productIdDeleted;
+};
+
 export const createProduct = async (params: any) => {
   params.userId = "65bfa48aa82dcb1961c7f5e2";
   const urlSearchParams = new URLSearchParams(
@@ -164,11 +173,17 @@ export const createProduct = async (params: any) => {
   return productIdCreated;
 };
 
-export const deleteProduct = async (productId: string) => {
-  const promise = await fetch(`${API_URL}/product/delete/${productId}`, {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-  });
-  const productIdDeleted: number = await promise.json();
-  return productIdDeleted;
+export const updateProduct = async (params: any, productId: string) => {
+  const urlSearchParams = new URLSearchParams(
+    params as Record<string, string>
+  ).toString();
+  const promise = await fetch(
+    `${API_URL}/product/update/${productId}?${urlSearchParams}`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  const productUpdated: number = await promise.json();
+  return productUpdated;
 };

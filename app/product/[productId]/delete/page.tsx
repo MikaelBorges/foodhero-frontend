@@ -7,7 +7,6 @@ import Link from "next/link";
 
 export default function DeleteProductPage() {
   const { data, isLoading, isError } = useGetProductById();
-
   const {
     data: idDeleted,
     isPending: isPendingDelete,
