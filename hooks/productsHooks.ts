@@ -4,6 +4,7 @@ import {
   getProducts,
   getUserProducts,
   getProductById,
+  deleteProduct,
   // deleteProduct,
 } from "@/api/productsApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -57,21 +58,20 @@ export const useCreateProduct = () => {
 
   return useMutation({
     mutationFn: (params: CreateProductParams) => createProduct(params),
-    onSuccess: (productIdCreated) => {
-      //queryClient.setQueryData(["products"], productIdCreated);
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
 };
 
-/* export const useDeleteProduct = () => {
+export const useDeleteProduct = () => {
   const { productId } = useParams();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => deleteProduct(productId as string),
-    onSuccess: (productIdDeleted) => {
-      queryClient.setQueryData(["products"], productIdDeleted);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
-}; */
+};

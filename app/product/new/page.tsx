@@ -92,10 +92,6 @@ export default function NewProductPage() {
             </p>
           )}
 
-          {isSuccessCreateProduct && (
-            <p className="text-green-500 text-center">Annonce bien soumise</p>
-          )}
-
           {categoriesData && !isLoadingCategories && !isErrorCategories && (
             <FormField
               control={form.control}
@@ -153,6 +149,10 @@ export default function NewProductPage() {
           </div>
         </form>
       </Form>
+
+      {isSuccessCreateProduct && (
+        <p className="text-green-500 text-center">Annonce bien soumise</p>
+      )}
     </>
   );
 }

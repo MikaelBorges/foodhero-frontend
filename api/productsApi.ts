@@ -156,14 +156,19 @@ export const createProduct = async (params: any) => {
     params as Record<string, string>
   ).toString();
   const queryParams = urlSearchParams ? `?${urlSearchParams}` : "";
-  const response = await fetch(`${API_URL}/product/new${queryParams}`, {
+  const promise = await fetch(`${API_URL}/product/new${queryParams}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   });
-  const productIdCreated: number = await response.json();
+  const productIdCreated: number = await promise.json();
   return productIdCreated;
 };
 
-/* export const deleteProduct = (productId: string) => {
-  return 2353;
-}; */
+export const deleteProduct = async (productId: string) => {
+  const promise = await fetch(`${API_URL}/product/delete/${productId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+  const productIdDeleted: number = await promise.json();
+  return productIdDeleted;
+};

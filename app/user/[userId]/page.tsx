@@ -17,12 +17,12 @@ export default function UserPage() {
   return (
     <>
       <BackButton />
-      <h1>Tableau de bord</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Tableau de bord</h1>
       <ul className="grid gap-3 grid-cols-1 w-full">
         <Link href={`/user/${userId}/products`}>
           <Card>
             <CardHeader>
-              <CardTitle className="flex gap-2">
+              <CardTitle className="flex gap-2 text-xl">
                 <Newspaper />
                 Annonces
               </CardTitle>
@@ -34,7 +34,7 @@ export default function UserPage() {
         <Link href={`/user/${userId}/settings`}>
           <Card>
             <CardHeader>
-              <CardTitle className="flex gap-2">
+              <CardTitle className="flex gap-2 text-xl">
                 <Cog />
                 Réglages
               </CardTitle>

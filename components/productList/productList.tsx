@@ -27,7 +27,7 @@ export function ProductList() {
   return (
     <>
       {Boolean(data?.totalProducts) && (
-        <p className="text-sm">{data?.totalProducts} annonces(s) trouvée(s)</p>
+        <p className="text-sm">{data?.totalProducts} annonce(s) trouvée(s)</p>
       )}
       {isLoading && <Loader2 className="animate-spin m-auto" />}
       {isError && (

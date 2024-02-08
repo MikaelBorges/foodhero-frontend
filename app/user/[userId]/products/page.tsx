@@ -16,7 +16,6 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 export default function UserProductsPage() {
   const { data, isLoading, isError } = useGetUserProducts();
-
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
@@ -29,9 +28,13 @@ export default function UserProductsPage() {
   return (
     <>
       <BackButton />
-      {data?.firstname && <h1>Annonce(s) de {data.firstname}</h1>}
+      {data?.firstname && (
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Annonce(s) de {data.firstname}
+        </h1>
+      )}
       {Boolean(data?.totalProducts) && (
-        <p className="text-sm">{data?.totalProducts} annonces(s)</p>
+        <p className="text-sm">{data?.totalProducts} annonce(s)</p>
       )}
       {data?.products && !isLoading && !isError && (
         <ul className="grid gap-3 grid-cols-1 w-full">

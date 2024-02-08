@@ -5,7 +5,7 @@ export default function SettingsPage() {
   return (
     <>
       <BackButton />
-      <h1>Réglages</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Réglages</h1>
     </>
   );
 }
