@@ -17,13 +17,13 @@ export default function DeleteProductPage() {
   return (
     <>
       <BackButton />
-      <h1 className="text-2xl font-semibold tracking-tight">
+      <h1 className="text-xl font-semibold tracking-tight">
         Etes-vous sûr(e) ?
       </h1>
       {data?.product && !isLoading && !isError && (
         <ProductCard product={data.product} />
       )}
-      <div className="flex gap-2">
+      <div className="flex flex-wrap justify-center gap-2">
         <Link href={`/user/${data?.user._id}/products`}>
           <Button>Revenir à mes annonces</Button>
         </Link>

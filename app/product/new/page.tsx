@@ -67,6 +67,9 @@ export default function NewProductPage() {
   return (
     <>
       <BackButton />
+      <h1 className="text-xl font-semibold tracking-tight">
+        Déposer une annonce
+      </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

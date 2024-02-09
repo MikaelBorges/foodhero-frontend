@@ -75,6 +75,9 @@ export default function UpdateProductPage() {
   return (
     <>
       <BackButton />
+      <h1 className="text-xl font-semibold tracking-tight">
+        Modifiez votre annonce
+      </h1>
       {productData && !isLoadingProduct && !isErrorProduct && (
         <Form {...form}>
           <form
@@ -150,7 +153,7 @@ export default function UpdateProductPage() {
                 <span>
                   {isPendingUpdateProduct
                     ? "Un instant"
-                    : "Modifier mon annonce"}
+                    : "Valider les modifications"}
                 </span>
               </Button>
             </div>

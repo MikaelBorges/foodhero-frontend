@@ -14,6 +14,7 @@ import {
   Moon,
   Sun,
   CircleUserRound,
+  Gauge,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -41,12 +42,23 @@ export function Menu() {
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
           <Link
-            href="/user/65bfa48aa82dcb1961c7f5e2"
+            href="/user/65bfa48aa82dcb1961c7f5e2/products"
             className="flex gap-2 items-center"
             onClick={() => setIsMenuOpen(false)}
           >
             <CircleUserRound className="h-4 w-4" />
             <span className="capitalize">Utilisateur</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
+          <Link
+            href="/user/65bfa48aa82dcb1961c7f5e2"
+            className="flex gap-2 items-center"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <Gauge className="h-4 w-4" />
+            <span className="capitalize">Dashboard</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

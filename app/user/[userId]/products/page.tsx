@@ -29,7 +29,7 @@ export default function UserProductsPage() {
     <>
       <BackButton />
       {data?.firstname && (
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="text-xl font-semibold tracking-tight">
           Annonce(s) de {data.firstname}
         </h1>
       )}

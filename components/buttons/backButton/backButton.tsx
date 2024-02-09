@@ -1,18 +1,19 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-type BackButtonProps = {
-  path?: string;
-};
+export function BackButton() {
+  const router = useRouter();
 
-export function BackButton({ path = "/" }: BackButtonProps) {
   return (
     <div className="w-full">
-      <Link href={path}>
-        <Button variant="link" className="space-x-2 p-0">
-          ← Retour
-        </Button>
-      </Link>
+      <Button
+        onClick={() => router.back()}
+        variant="link"
+        className="space-x-2 p-0"
+      >
+        ← Retour
+      </Button>
     </div>
   );
 }
