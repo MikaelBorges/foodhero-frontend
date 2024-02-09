@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Cog, Newspaper } from "lucide-react";
+import { CircleUserRound, Cog, Newspaper } from "lucide-react";
 
 export default function UserPage() {
   const { userId } = useParams();
@@ -29,6 +29,18 @@ export default function UserPage() {
               <CardDescription>Toutes mes annonces</CardDescription>
             </CardHeader>
             <CardContent>Toutes mes annonces</CardContent>
+          </Card>
+        </Link>
+        <Link href={`/user/${userId}/profile`}>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-2xl">
+                <CircleUserRound />
+                Profil
+              </CardTitle>
+              <CardDescription>Voir mon profil</CardDescription>
+            </CardHeader>
+            <CardContent>Voir mon profil</CardContent>
           </Card>
         </Link>
         <Link href={`/user/${userId}/settings`}>

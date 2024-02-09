@@ -36,9 +36,9 @@ export default function UserProductsPage() {
       {Boolean(data?.totalProducts) && (
         <p className="text-sm">{data?.totalProducts} annonce(s)</p>
       )}
-      {data?.products && !isLoading && !isError && (
+      {Boolean(data?.totalProducts) && !isLoading && !isError && (
         <ul className="grid gap-3 grid-cols-1 w-full">
-          {data.products.map((product) => (
+          {data?.products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </ul>

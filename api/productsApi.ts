@@ -1,5 +1,6 @@
 import { API_URL } from "@/constants/endPoints";
 import type { ProductCardType } from "@/types/productTypes";
+import { waitSeconds } from "@/lib/fetchUtils";
 
 type ProductType = {
   _id: string;
@@ -85,6 +86,7 @@ type ResponseProducts = {
 export const getProducts = async (
   params: ParamsType
 ): Promise<GetProductsType> => {
+  await waitSeconds(1);
   const urlSearchParams = new URLSearchParams(
     params as Record<string, string>
   ).toString();
@@ -97,6 +99,7 @@ export const getProducts = async (
 };
 
 export const getUserProducts = async (userId: string) => {
+  await waitSeconds(1);
   const promise = await fetch(`${API_URL}/products/user/${userId}`);
   const response = await promise.json();
   const { totalProducts, productsRaw, firstname } = response;
@@ -122,6 +125,7 @@ const usefullProductsKeys = (products: ProductType[]): ProductCardType[] => {
 };
 
 export const getProductById = async (productId: string) => {
+  await waitSeconds(1);
   const response = await fetch(`${API_URL}/product/${productId}`);
   const productRaw: any = await response.json();
   const { user } = productRaw;
@@ -146,11 +150,13 @@ type Categories =
   | "Goat";
 
 export const getCategories = async (): Promise<Categories[]> => {
+  await waitSeconds(1);
   const response = await fetch(`${API_URL}/products/categories`);
   return await response.json();
 };
 
 export const deleteProduct = async (productId: string) => {
+  await waitSeconds(1);
   const promise = await fetch(`${API_URL}/product/delete/${productId}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -160,6 +166,7 @@ export const deleteProduct = async (productId: string) => {
 };
 
 export const createProduct = async (params: any) => {
+  await waitSeconds(1);
   params.userId = "65bfa48aa82dcb1961c7f5e2";
   const urlSearchParams = new URLSearchParams(
     params as Record<string, string>
@@ -174,6 +181,7 @@ export const createProduct = async (params: any) => {
 };
 
 export const updateProduct = async (params: any, productId: string) => {
+  await waitSeconds(1);
   const urlSearchParams = new URLSearchParams(
     params as Record<string, string>
   ).toString();

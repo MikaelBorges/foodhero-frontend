@@ -5,11 +5,12 @@ import { useState } from "react";
 
 export function TanstackProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
+  const isDevMode = process.env.NEXT_PUBLIC_ENV === "dev";
 
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      {isDevMode && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );
 }

@@ -1,9 +1,12 @@
 "use client";
 import { BackButton } from "@/components/buttons/backButton/backButton";
-import { ProductCard } from "@/components/productCard/productCard";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useDeleteProduct, useGetProductById } from "@/hooks/productsHooks";
 import Link from "next/link";
+import noImage from "@/assets/noImageProduct.png";
+import { Badge } from "@/components/ui/badge";
+import { Loader2 } from "lucide-react";
 
 export default function DeleteProductPage() {
   const { data, isLoading, isError } = useGetProductById();
@@ -16,24 +19,55 @@ export default function DeleteProductPage() {
 
   return (
     <>
-      <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">
-        Etes-vous sûr(e) ?
-      </h1>
-      {data?.product && !isLoading && !isError && (
-        <ProductCard product={data.product} />
+      {!Boolean(idDeleted) && <BackButton />}
+      {data && !isLoading && !isError && (
+        <>
+          <h1 className="text-xl font-semibold tracking-tight">
+            Etes-vous sûr(e) ?
+          </h1>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link href={`/user/${data.user._id}/products`}>
+              <Button>Revenir à mes annonces</Button>
+            </Link>
+            <Button
+              disabled={Boolean(idDeleted) || isPendingDelete}
+              onClick={() => mutate()}
+              variant="destructive"
+            >
+              {isPendingDelete && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              {isPendingDelete ? "Un instant" : "Oui supprimer"}
+            </Button>
+            {idDeleted && !isPendingDelete && !isErrorDelete && (
+              <p className="text-green-500">Annonce bien supprimée</p>
+            )}
+            {isErrorDelete && (
+              <p className="text-red-500">
+                Problème dans la suppression de l&apos;annonce
+              </p>
+            )}
+          </div>
+          <Image
+            src={data.product.imageThumb ? data.product.imageThumb : noImage}
+            alt={data.product.title}
+            width={500}
+            height={500}
+            priority
+          />
+          <div className="text-start w-full space-y-2">
+            <Badge>{data.product.category}</Badge>
+            <p className="text-xs text-muted-foreground">
+              {data.product.location}
+            </p>
+            <h1 className="text-xl font-semibold tracking-tight">
+              {data.product.title}
+            </h1>
+          </div>
+        </>
       )}
-      <div className="flex flex-wrap justify-center gap-2">
-        <Link href={`/user/${data?.user._id}/products`}>
-          <Button>Revenir à mes annonces</Button>
-        </Link>
-        <Button onClick={() => mutate()} variant="destructive">
-          Oui supprimer
-        </Button>
-      </div>
-      {idDeleted && !isPendingDelete && !isErrorDelete && (
-        <p className="text-green-500 text-center">Annonce bien supprimée</p>
-      )}
+      {isLoading && <Loader2 className="animate-spin" />}
+      {isError && <p className="text-red-500">Le produit n&apos;existe pas</p>}
     </>
   );
 }

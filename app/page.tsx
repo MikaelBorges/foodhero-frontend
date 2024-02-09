@@ -11,7 +11,7 @@ export default function RootPage() {
         <DevMode />
       ) : (
         <h1 className="text-xl font-semibold tracking-tight">
-          Rechercher sur Food Hero
+          Rechercher un plat
         </h1>
       )}
       <Filters />
