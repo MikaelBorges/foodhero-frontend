@@ -19,6 +19,7 @@ import { InputTextNumber } from "@/components/inputTextNumber/inputTextNumber";
 import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { BackButton } from "@/components/buttons/backButton/backButton";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function NewProductPage() {
   const {
@@ -42,11 +43,14 @@ export default function NewProductPage() {
       title: params.title ? params.title : "",
       location: params.location ? params.location : "",
       price: params.price ? params.price : "",
-      category: params.category ? params.category : "",
+      categories: params.categories ? params.categories.split(",") : [],
     },
   });
 
-  const onSubmit = (values: z.infer<typeof productSchema>) => mutate(values);
+  const onSubmit = (values: z.infer<typeof productSchema>) => {
+    //console.log("values", values);
+    mutate(values);
+  };
 
   const inputs = [
     {
@@ -63,6 +67,11 @@ export default function NewProductPage() {
       type: "number",
     },
   ];
+
+  const categories = categoriesData?.map((category) => ({
+    id: category,
+    label: category.charAt(0).toUpperCase() + category.slice(1),
+  }));
 
   return (
     <>
@@ -88,33 +97,42 @@ export default function NewProductPage() {
           {categoriesData && !isLoadingCategories && !isErrorCategories && (
             <FormField
               control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <RadioGroup
-                      key={Date.now()} // TRICK : Pour forcer le reset d'un radio coché
-                      onValueChange={field.onChange}
-                      defaultValue={field.value as string}
-                      className="flex gap-3 py-3"
-                    >
-                      <div className="flex flex-wrap space-y-0 gap-3">
-                        {categoriesData?.map((category) => (
+              name="categories"
+              render={() => (
+                <FormItem className="flex flex-wrap space-y-0 gap-3">
+                  {categories?.map((item) => (
+                    <FormField
+                      key={item.id}
+                      control={form.control}
+                      name="categories"
+                      render={({ field }) => {
+                        return (
                           <FormItem
-                            key={category}
-                            className="flex items-center space-x-3 space-y-0"
+                            key={item.id}
+                            className="flex space-x-2 space-y-0"
                           >
                             <FormControl>
-                              <RadioGroupItem value={category} />
+                              <Checkbox
+                                checked={field.value?.includes(item.id)}
+                                onCheckedChange={(checked) => {
+                                  return checked
+                                    ? field.onChange([...field.value, item.id])
+                                    : field.onChange(
+                                        field.value?.filter(
+                                          (value) => value !== item.id
+                                        )
+                                      );
+                                }}
+                              />
                             </FormControl>
                             <FormLabel className="font-normal cursor-pointer">
-                              {category}
+                              {item.label}
                             </FormLabel>
                           </FormItem>
-                        ))}
-                      </div>
-                    </RadioGroup>
-                  </FormControl>
+                        );
+                      }}
+                    />
+                  ))}
                   <FormMessage />
                 </FormItem>
               )}

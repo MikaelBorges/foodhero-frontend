@@ -22,6 +22,7 @@ import { InputTextNumber } from "@/components/inputTextNumber/inputTextNumber";
 import { Loader2 } from "lucide-react";
 import { BackButton } from "@/components/buttons/backButton/backButton";
 import { useEffect } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function UpdateProductPage() {
   const {
@@ -50,7 +51,7 @@ export default function UpdateProductPage() {
       form.setValue("title", productData.product.title);
       form.setValue("location", productData.product.location);
       form.setValue("price", String(productData.product.price));
-      form.setValue("category", productData.product.category);
+      form.setValue("categories", productData.product.categories);
     }
   }, [productData, form]);
 
@@ -71,6 +72,11 @@ export default function UpdateProductPage() {
       type: "number",
     },
   ];
+
+  const categories = categoriesData?.map((category) => ({
+    id: category,
+    label: category.charAt(0).toUpperCase() + category.slice(1),
+  }));
 
   return (
     <>
@@ -94,7 +100,7 @@ export default function UpdateProductPage() {
               />
             ))}
 
-            {categoriesData && !isLoadingCategories && !isErrorCategories && (
+            {/* {categoriesData && !isLoadingCategories && !isErrorCategories && (
               <FormField
                 control={form.control}
                 name="category"
@@ -128,7 +134,56 @@ export default function UpdateProductPage() {
                   </FormItem>
                 )}
               />
+            )} */}
+
+            {categoriesData && !isLoadingCategories && !isErrorCategories && (
+              <FormField
+                control={form.control}
+                name="categories"
+                render={() => (
+                  <FormItem className="flex flex-wrap space-y-0 gap-3">
+                    {categories?.map((item) => (
+                      <FormField
+                        key={item.id}
+                        control={form.control}
+                        name="categories"
+                        render={({ field }) => {
+                          return (
+                            <FormItem
+                              key={item.id}
+                              className="flex space-x-2 space-y-0"
+                            >
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value?.includes(item.id)}
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([
+                                          ...field.value,
+                                          item.id,
+                                        ])
+                                      : field.onChange(
+                                          field.value?.filter(
+                                            (value) => value !== item.id
+                                          )
+                                        );
+                                  }}
+                                />
+                              </FormControl>
+                              <FormLabel className="font-normal cursor-pointer">
+                                {item.label}
+                              </FormLabel>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    ))}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             )}
+
             {isLoadingCategories && <Loader2 className="animate-spin m-auto" />}
             {isErrorCategories && (
               <p className="italic text-sm text-start text-orange-500">

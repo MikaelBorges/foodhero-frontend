@@ -6,6 +6,7 @@ import {
   getProductById,
   deleteProduct,
   updateProduct,
+  Categories,
 } from "@/api/productsApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -50,7 +51,7 @@ type CreateProductParams = {
   title: string;
   location: string;
   price: string;
-  category: string;
+  categories: string[];
 };
 
 export const useDeleteProduct = () => {

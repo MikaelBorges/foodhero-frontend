@@ -80,7 +80,17 @@ export default function ProductPage() {
             priority
           />
           <div className="text-start w-full space-y-2">
-            <Badge>{data.product.category}</Badge>
+            <div className="space-x-1">
+              {data.product.categories.map((category, index) => (
+                <Badge
+                  key={`${category}-${index}`}
+                  className="truncate h-fit inline w-fit"
+                >
+                  {category}
+                </Badge>
+              ))}
+            </div>
+
             <p className="text-xs text-muted-foreground">
               {data.product.location}
             </p>

@@ -11,7 +11,7 @@ export default function RootPage() {
         <DevMode />
       ) : (
         <h1 className="text-xl font-semibold tracking-tight text-center">
-          Cuisine entre particuliers
+          Revendre sa cuisine entre particuliers
         </h1>
       )}
       <Filters />

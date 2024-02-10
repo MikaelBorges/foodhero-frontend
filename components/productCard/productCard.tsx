@@ -26,7 +26,7 @@ export function ProductCard({
   className,
   ...props
 }: ProductCardProps) {
-  const { title, price: rawPrice, image, category, location, _id } = product;
+  const { title, price: rawPrice, image, categories, location, _id } = product;
   const price = numeral(rawPrice).format("0,0.00");
 
   return (
@@ -38,7 +38,15 @@ export function ProductCard({
         {image && <CardImage imageUrl={image} imageAlt={title} />}
         <CardContent className="p-0 flex flex-col justify-between w-full">
           <CardHeader className="p-4 pb-0">
-            <Badge className="truncate h-fit inline w-fit">{category}</Badge>
+            {categories.map((category, index) => (
+              <Badge
+                key={`${category}-${index}`}
+                className="truncate h-fit inline w-fit"
+              >
+                {category}
+              </Badge>
+            ))}
+
             <CardDescription className="text-xs truncate">
               {location}
             </CardDescription>

@@ -39,6 +39,7 @@ export function Filters() {
     const urlSearchParams = new URLSearchParams(
       usefulValues as Record<string, string>
     ).toString();
+
     router.push(`${pathname}${urlSearchParams ? `?${urlSearchParams}` : ""}`, {
       scroll: false,
     });

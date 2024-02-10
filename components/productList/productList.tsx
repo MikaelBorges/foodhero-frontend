@@ -26,7 +26,7 @@ export function ProductList() {
 
   return (
     <>
-      {Boolean(data?.totalProducts) && (
+      {Boolean(data?.totalProducts) && !isLoading && !isError && (
         <p className="text-sm">{data?.totalProducts} annonce(s) trouvée(s)</p>
       )}
       {isLoading && <Loader2 className="animate-spin m-auto" />}
@@ -45,7 +45,7 @@ export function ProductList() {
       {!data?.totalProducts && !isLoading && !isError && (
         <p className="text-sm">Aucun produit ne correspond à vos critères</p>
       )}
-      {Boolean(totalPages > 1) && (
+      {Boolean(totalPages > 1) && !isLoading && !isError && (
         <Pagination>
           <PaginationContent>
             <PaginationItem>

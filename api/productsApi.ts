@@ -8,7 +8,7 @@ type ProductType = {
   idMeal: string;
   strMeal: string;
   strDrinkAlternate: string | null;
-  strCategory: string;
+  strCategory: Categories[];
   strArea: string;
   strInstructions: string;
   strMealThumb: string;
@@ -113,7 +113,7 @@ const usefullProductKeys = (product: ProductType): ProductCardType => {
     id: Number(product.idMeal),
     title: product.strMeal,
     price: product.price,
-    category: product.strCategory,
+    categories: product.strCategory,
     image: product.strMealPreview,
     imageThumb: product.strMealThumb,
     location: product.location,
@@ -133,7 +133,7 @@ export const getProductById = async (productId: string) => {
   return { product, user };
 };
 
-type Categories =
+export type Categories =
   | "Seafood"
   | "Beef"
   | "Miscellaneous"
@@ -166,6 +166,7 @@ export const deleteProduct = async (productId: string) => {
 };
 
 export const createProduct = async (params: any) => {
+  console.log("params", params);
   await waitSeconds(1);
   params.userId = "65bfa48aa82dcb1961c7f5e2";
   const urlSearchParams = new URLSearchParams(

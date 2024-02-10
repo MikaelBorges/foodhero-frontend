@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import noImageLight from "@/assets/noImageProductLight.jpg";
+import noImageDark from "@/assets/noImageProductDark.jpg";
 
 export default function DeleteProductPage() {
   const { data, isLoading, isError } = useGetProductById();
@@ -18,18 +20,23 @@ export default function DeleteProductPage() {
     mutate,
   } = useDeleteProduct();
   const { theme } = useTheme();
-  const [noImageUrl, setNoImageUrl] = useState<string>("");
+  const [colorTheme, setColorTheme] = useState<string>("");
 
   useEffect(() => {
-    if (theme === "dark") setNoImageUrl("@/assets/noImageProductDark.jpg");
-    else if (theme === "light")
-      setNoImageUrl("@/assets/noImageProductLight.jpg");
-    else if (theme === "system") {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches)
-        setNoImageUrl("@/assets/noImageProductDark.jpg");
-      else setNoImageUrl("@/assets/noImageProductLight.jpg");
+    if (theme === "dark") {
+      setColorTheme("dark");
+    } else if (theme === "light") {
+      setColorTheme("light");
+    } else if (theme === "system") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        setColorTheme("dark");
+      } else {
+        setColorTheme("light");
+      }
     }
   }, [theme]);
+
+  const noImageUrl = colorTheme == "dark" ? noImageDark : noImageLight;
 
   return (
     <>
@@ -70,7 +77,16 @@ export default function DeleteProductPage() {
             priority
           />
           <div className="text-start w-full space-y-2">
-            <Badge>{data.product.category}</Badge>
+            <div className="space-x-1">
+              {data.product.categories.map((category, index) => (
+                <Badge
+                  key={`${category}-${index}`}
+                  className="truncate h-fit inline w-fit"
+                >
+                  {category}
+                </Badge>
+              ))}
+            </div>
             <p className="text-xs text-muted-foreground">
               {data.product.location}
             </p>
