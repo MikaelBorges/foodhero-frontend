@@ -48,16 +48,16 @@ export function Menu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent style={{ zIndex: "500" }} align="end">
         <DropdownMenuLabel>{getGreeting()}</DropdownMenuLabel>
-        {/* <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
+        <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
           <Link
-            href="/user/65bfa48aa82dcb1961c7f5e2/profile"
+            href="/user/65bfa48aa82dcb1961c7f5e2/update"
             className="flex items-center gap-2"
             onClick={() => setIsMenuOpen(false)}
           >
             <CircleUserRound className="h-4 w-4" />
             <span>Jane</span>
           </Link>
-        </DropdownMenuItem> */}
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
           <Button
             variant="ghost"

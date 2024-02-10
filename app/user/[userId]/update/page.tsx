@@ -13,16 +13,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useRegisterUser } from "@/hooks/userHooks";
+import { useUpdateUser } from "@/hooks/userHooks";
 import { BackButton } from "@/components/buttons/backButton/backButton";
-import { registerSchema } from "@/schemas/userSchemas";
+import { updateSchema } from "@/schemas/userSchemas";
 
 export default function RegisterPage() {
-  const { data, isPending, isError, mutate } = useRegisterUser();
+  const { data, isPending, isError, mutate } = useUpdateUser();
   if (data) console.log("data", data);
 
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<z.infer<typeof updateSchema>>({
+    resolver: zodResolver(updateSchema),
     defaultValues: {
       email: "john.doe@gmail.com",
       firstname: "Janet",
@@ -32,12 +32,14 @@ export default function RegisterPage() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof registerSchema>) => mutate(values);
+  const onSubmit = (values: z.infer<typeof updateSchema>) => mutate(values);
 
   return (
     <>
       <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">Créer mon compte</h1>
+      <h1 className="text-xl font-semibold tracking-tight">
+        Modifier mon compte
+      </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -110,12 +112,16 @@ export default function RegisterPage() {
           />
           <Button type="submit" variant="secondary" disabled={isPending}>
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            <span>{isPending ? "Un instant" : "Créer"}</span>
+            <span>
+              {isPending ? "Un instant" : "Valider les modifications"}
+            </span>
           </Button>
         </form>
       </Form>
       {isError && (
-        <p className="text-red-500">Erreur, la création de compte a échoué.</p>
+        <p className="text-red-500">
+          Erreur, la modification de compte a échoué.
+        </p>
       )}
     </>
   );

@@ -31,16 +31,18 @@ export default function UserPage() {
             <CardContent>Toutes mes annonces</CardContent>
           </Card>
         </Link>
-        <Card className="text-gray-500">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-2xl">
-              <CircleUserRound />
-              Profil
-            </CardTitle>
-            <CardDescription>Voir mon profil</CardDescription>
-          </CardHeader>
-          <CardContent>Voir mon profil</CardContent>
-        </Card>
+        <Link href={`/user/${userId}/update`}>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-2xl">
+                <CircleUserRound />
+                Profil
+              </CardTitle>
+              <CardDescription>Voir mon profil</CardDescription>
+            </CardHeader>
+            <CardContent>Voir mon profil</CardContent>
+          </Card>
+        </Link>
         <Card className="text-gray-500">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">

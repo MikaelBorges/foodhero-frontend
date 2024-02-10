@@ -24,6 +24,7 @@ export function DevMode() {
           <li>la pagination est un peu statique et n&apos;évolue pas</li>
           <li>la page active dans la pagination n&apos;est pas visible</li>
           <li>ios : effet de zoom sur les champs qui reste actif même après</li>
+          <li>retirer les badges des cards</li>
         </ol>
       )}
     </>
