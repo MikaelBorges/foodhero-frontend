@@ -15,7 +15,7 @@ export function TitleFilter({ control }: CommonFilterProps) {
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <Input placeholder="Recherche..." {...field} />
+            <Input placeholder="Plat..." {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

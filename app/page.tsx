@@ -10,8 +10,8 @@ export default function RootPage() {
       {isDevMode ? (
         <DevMode />
       ) : (
-        <h1 className="text-xl font-semibold tracking-tight">
-          Rechercher un plat
+        <h1 className="text-xl font-semibold tracking-tight text-center">
+          Cuisine entre particuliers
         </h1>
       )}
       <Filters />

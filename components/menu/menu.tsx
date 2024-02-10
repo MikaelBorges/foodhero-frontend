@@ -48,7 +48,7 @@ export function Menu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent style={{ zIndex: "500" }} align="end">
         <DropdownMenuLabel>{getGreeting()}</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
+        {/* <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
           <Link
             href="/user/65bfa48aa82dcb1961c7f5e2/profile"
             className="flex items-center gap-2"
@@ -57,12 +57,12 @@ export function Menu() {
             <CircleUserRound className="h-4 w-4" />
             <span>Jane</span>
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
           <Button
             variant="ghost"
             onClick={() => console.log("se déconnecter")}
-            className="flex items-center gap-2 p-0 h-auto text-red-500"
+            className="flex items-center gap-2 p-0 h-auto text-red-500 hover:text-red-500"
           >
             <LogOut className="h-4 w-4" />
             <span>Se déconnecter</span>
@@ -100,16 +100,6 @@ export function Menu() {
             <span>Tableau de bord</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link
-            href="/product/new"
-            className="flex items-center gap-2"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <PlusCircle className="h-4 w-4" />
-            <span>Ajouter</span>
-          </Link>
-        </DropdownMenuItem>
         <DropdownMenuItem disabled>
           <Link
             href="/favorites"
@@ -128,16 +118,6 @@ export function Menu() {
           >
             <MessageCircleMore className="h-4 w-4" />
             <span>Messages</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link
-            href="/user/65bfa48aa82dcb1961c7f5e2/settings"
-            className="flex items-center gap-2"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <Cog className="h-4 w-4" />
-            <span>Réglages</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

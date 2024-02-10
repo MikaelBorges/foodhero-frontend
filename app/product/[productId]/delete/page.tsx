@@ -4,8 +4,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useDeleteProduct, useGetProductById } from "@/hooks/productsHooks";
 import Link from "next/link";
-import noImageLight from "@/assets/noImageProductLight.jpg";
-import noImageDark from "@/assets/noImageProductDark.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -19,24 +17,19 @@ export default function DeleteProductPage() {
     isError: isErrorDelete,
     mutate,
   } = useDeleteProduct();
-  const [colorTheme, setColorTheme] = useState<string>("");
   const { theme } = useTheme();
+  const [noImageUrl, setNoImageUrl] = useState<string>("");
 
   useEffect(() => {
-    if (theme === "dark") {
-      setColorTheme("dark");
-    } else if (theme === "light") {
-      setColorTheme("light");
-    } else if (theme === "system") {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        setColorTheme("dark");
-      } else {
-        setColorTheme("light");
-      }
+    if (theme === "dark") setNoImageUrl("@/assets/noImageProductDark.jpg");
+    else if (theme === "light")
+      setNoImageUrl("@/assets/noImageProductLight.jpg");
+    else if (theme === "system") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches)
+        setNoImageUrl("@/assets/noImageProductDark.jpg");
+      else setNoImageUrl("@/assets/noImageProductLight.jpg");
     }
   }, [theme]);
-
-  const noImageUrl = colorTheme == "dark" ? noImageDark : noImageLight;
 
   return (
     <>

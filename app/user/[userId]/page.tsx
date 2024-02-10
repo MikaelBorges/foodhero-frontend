@@ -31,30 +31,26 @@ export default function UserPage() {
             <CardContent>Toutes mes annonces</CardContent>
           </Card>
         </Link>
-        <Link href={`/user/${userId}/profile`}>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-2xl">
-                <CircleUserRound />
-                Profil
-              </CardTitle>
-              <CardDescription>Voir mon profil</CardDescription>
-            </CardHeader>
-            <CardContent>Voir mon profil</CardContent>
-          </Card>
-        </Link>
-        <Link href={`/user/${userId}/settings`}>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-2xl">
-                <Cog />
-                Réglages
-              </CardTitle>
-              <CardDescription>Tous mes réglages</CardDescription>
-            </CardHeader>
-            <CardContent>Tous mes réglages</CardContent>
-          </Card>
-        </Link>
+        <Card className="text-gray-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-2xl">
+              <CircleUserRound />
+              Profil
+            </CardTitle>
+            <CardDescription>Voir mon profil</CardDescription>
+          </CardHeader>
+          <CardContent>Voir mon profil</CardContent>
+        </Card>
+        <Card className="text-gray-500">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-2xl">
+              <Cog />
+              Réglages
+            </CardTitle>
+            <CardDescription>Tous mes réglages</CardDescription>
+          </CardHeader>
+          <CardContent>Tous mes réglages</CardContent>
+        </Card>
       </ul>
     </>
   );

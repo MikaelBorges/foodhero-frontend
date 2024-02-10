@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function BackButton() {
@@ -12,7 +13,7 @@ export function BackButton() {
         variant="link"
         className="space-x-2 p-0"
       >
-        ← Retour
+        <ChevronLeft /> Retour
       </Button>
     </div>
   );
