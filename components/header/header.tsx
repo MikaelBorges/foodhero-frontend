@@ -1,7 +1,11 @@
 import { Logo } from "@/components/logo/logo";
 import { Menu } from "@/components/menu/menu";
 import { Button } from "../ui/button";
-import { Newspaper, PlusSquare } from "lucide-react";
+import {
+  Newspaper,
+  //PlusSquare,
+  PlusCircle,
+} from "lucide-react";
 import Link from "next/link";
 
 export function Header() {
@@ -12,7 +16,7 @@ export function Header() {
         <div className="space-x-2">
           <Link href="/product/new">
             <Button variant="outline" size="icon">
-              <PlusSquare />
+              <PlusCircle />
             </Button>
           </Link>
           <Link href="/user/65bfa48aa82dcb1961c7f5e2/products">

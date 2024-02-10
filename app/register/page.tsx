@@ -1,10 +1,10 @@
 import { BackButton } from "@/components/buttons/backButton/backButton";
 
-export default function ProfilePage() {
+export default function RegisterPage() {
   return (
     <>
       <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">ProfilePage</h1>
+      <h1 className="text-xl font-semibold tracking-tight">RegisterPage</h1>
     </>
   );
 }

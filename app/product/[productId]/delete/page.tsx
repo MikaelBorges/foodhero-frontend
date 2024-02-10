@@ -4,9 +4,12 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useDeleteProduct, useGetProductById } from "@/hooks/productsHooks";
 import Link from "next/link";
-import noImage from "@/assets/noImageProduct.png";
+import noImageLight from "@/assets/noImageProductLight.jpg";
+import noImageDark from "@/assets/noImageProductDark.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Loader2 } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function DeleteProductPage() {
   const { data, isLoading, isError } = useGetProductById();
@@ -16,6 +19,24 @@ export default function DeleteProductPage() {
     isError: isErrorDelete,
     mutate,
   } = useDeleteProduct();
+  const [colorTheme, setColorTheme] = useState<string>("");
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setColorTheme("dark");
+    } else if (theme === "light") {
+      setColorTheme("light");
+    } else if (theme === "system") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        setColorTheme("dark");
+      } else {
+        setColorTheme("light");
+      }
+    }
+  }, [theme]);
+
+  const noImageUrl = colorTheme == "dark" ? noImageDark : noImageLight;
 
   return (
     <>
@@ -49,7 +70,7 @@ export default function DeleteProductPage() {
             )}
           </div>
           <Image
-            src={data.product.imageThumb ? data.product.imageThumb : noImage}
+            src={data.product.imageThumb ? data.product.imageThumb : noImageUrl}
             alt={data.product.title}
             width={500}
             height={500}

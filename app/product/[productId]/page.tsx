@@ -1,15 +1,22 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { BackButton } from "@/components/buttons/backButton/backButton";
 import Link from "next/link";
 import { useGetProductById } from "@/hooks/productsHooks";
 import { useGetPhoneById } from "@/hooks/userHooks";
-import noImage from "@/assets/noImageProduct.png";
+import noImageLight from "@/assets/noImageProductLight.jpg";
+import noImageDark from "@/assets/noImageProductDark.jpg";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import {
+  MapContainer,
+  TileLayer,
+  //GeoJSON
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { useTheme } from "next-themes";
 
 export default function ProductPage() {
   const [userId, setUserId] = useState<string>("");
@@ -19,6 +26,46 @@ export default function ProductPage() {
     isLoading: isLoadingPhone,
     isError: isErrorPhone,
   } = useGetPhoneById(userId);
+  const [colorTheme, setColorTheme] = useState<string>("");
+  const { theme } = useTheme();
+
+  const style = () => {
+    return {
+      fillColor: "orange",
+      weight: 1,
+      opacity: 1,
+      color: "#888",
+      dashArray: "3",
+      fillOpacity: 0.7,
+    };
+  };
+
+  const countries = {
+    type: "Feature",
+    geometry: {
+      type: "Point",
+      coordinates: [48.89207, 2.2043814],
+    },
+    properties: {
+      name: "Nanterre",
+    },
+  };
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setColorTheme("dark");
+    } else if (theme === "light") {
+      setColorTheme("light");
+    } else if (theme === "system") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        setColorTheme("dark");
+      } else {
+        setColorTheme("light");
+      }
+    }
+  }, [theme]);
+
+  const noImageUrl = colorTheme == "dark" ? noImageDark : noImageLight;
 
   return (
     <>
@@ -26,7 +73,7 @@ export default function ProductPage() {
       {data && !isLoading && !isError && (
         <>
           <Image
-            src={data.product.imageThumb ? data.product.imageThumb : noImage}
+            src={data.product.imageThumb ? data.product.imageThumb : noImageUrl}
             alt={data.product.title}
             width={500}
             height={500}
@@ -41,7 +88,13 @@ export default function ProductPage() {
               {data.product.title}
             </h1>
           </div>
-          <Separator />
+          <MapContainer center={[48.89207, 2.2043814]} zoom={13}>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {/* <GeoJSON key={1} data={countries} style={() => style} /> */}
+          </MapContainer>
           <div className="w-full">
             <Link
               className="underline"
