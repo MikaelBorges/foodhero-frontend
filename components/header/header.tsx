@@ -8,7 +8,6 @@ import {
   PlusCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { Switch } from "@/components/ui/switch";
 import { DevModeContext } from "@/contexts/devModeContext";
 import { useContext } from "react";
 
@@ -17,14 +16,13 @@ export function Header() {
 
   return (
     <header className="z-10 sticky top-0 bg-secondary flex justify-center">
+      <input
+        onChange={() => devModeCtx.setDevMode(!devModeCtx.devMode)}
+        className="fixed top-0 left-0"
+        type="checkbox"
+      />
       <div className="p-4 flex justify-between w-full max-w-lg items-center">
         <Logo />
-        <Switch
-          defaultChecked={Boolean(devModeCtx.devMode)}
-          id="dev-mode"
-          className="border border-background p-0.5"
-          onCheckedChange={() => devModeCtx.setDevMode(!devModeCtx.devMode)}
-        />
         <div className="space-x-2">
           <Link href="/product/new">
             <Button variant="outline" size="icon">

@@ -23,7 +23,7 @@ export default function RegisterPage() {
   const form = useForm<z.infer<typeof updateSchema>>({
     resolver: zodResolver(updateSchema),
     defaultValues: {
-      email: "john.doe@gmail.com",
+      email: "janet.tears@gmail.com",
       firstname: "Janet",
       lastname: "Tears",
       phone: "06 07 08 09 10",

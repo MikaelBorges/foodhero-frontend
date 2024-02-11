@@ -51,7 +51,7 @@ export function Menu() {
         <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
           <Link
             href="/user/65bfa48aa82dcb1961c7f5e2/update"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full"
             onClick={() => setIsMenuOpen(false)}
           >
             <CircleUserRound className="h-4 w-4" />
@@ -62,7 +62,7 @@ export function Menu() {
           <Button
             variant="ghost"
             onClick={() => console.log("se déconnecter")}
-            className="flex items-center gap-2 p-0 h-auto text-red-500 hover:text-red-500"
+            className="flex justify-start items-center gap-2 p-0 h-auto text-red-500 hover:text-red-500 w-full"
           >
             <LogOut className="h-4 w-4" />
             <span>Se déconnecter</span>
@@ -71,7 +71,7 @@ export function Menu() {
         <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>
           <Link
             href="/login"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full"
             onClick={() => setIsMenuOpen(false)}
           >
             <KeyRound className="h-4 w-4" />
@@ -81,7 +81,7 @@ export function Menu() {
         <DropdownMenuItem>
           <Link
             href="/register"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full"
             onClick={() => setIsMenuOpen(false)}
           >
             <UserPlus className="h-4 w-4" />
@@ -93,7 +93,7 @@ export function Menu() {
         <DropdownMenuItem>
           <Link
             href="/user/65bfa48aa82dcb1961c7f5e2"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full"
             onClick={() => setIsMenuOpen(false)}
           >
             <Gauge className="h-4 w-4" />
@@ -103,7 +103,7 @@ export function Menu() {
         <DropdownMenuItem disabled>
           <Link
             href="/favorites"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full"
             onClick={() => setIsMenuOpen(false)}
           >
             <Heart className="h-4 w-4" />
@@ -113,7 +113,7 @@ export function Menu() {
         <DropdownMenuItem disabled>
           <Link
             href="/messages"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full"
             onClick={() => setIsMenuOpen(false)}
           >
             <MessageCircleMore className="h-4 w-4" />

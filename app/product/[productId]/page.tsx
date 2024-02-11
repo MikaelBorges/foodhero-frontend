@@ -65,7 +65,7 @@ export default function ProductPage() {
     }
   }, [theme]);
 
-  const noImageUrl = colorTheme == "dark" ? noImageDark : noImageLight;
+  const noImageUrl = colorTheme === "dark" ? noImageDark : noImageLight;
 
   return (
     <>
@@ -97,6 +97,7 @@ export default function ProductPage() {
             <h1 className="text-xl font-semibold tracking-tight">
               {data.product.title}
             </h1>
+            <p>{data.product.description}</p>
           </div>
           <MapContainer center={[48.89207, 2.2043814]} zoom={13}>
             <TileLayer

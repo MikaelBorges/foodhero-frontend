@@ -112,6 +112,7 @@ const usefullProductKeys = (product: ProductType): ProductCardType => {
     _id: product._id,
     id: Number(product.idMeal),
     title: product.strMeal,
+    description: product.strInstructions,
     price: product.price,
     categories: product.strCategory,
     image: product.strMealPreview,
