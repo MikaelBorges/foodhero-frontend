@@ -12,7 +12,7 @@ import "@/config/numeralConfig";
 import { cn } from "@/lib/utils";
 import { ProductCardType } from "@/types/productTypes";
 import numeral from "numeral";
-import { CardImage } from "./productCardImage";
+import { CardImage } from "@/components/productCard/productCardImage";
 import Link from "next/link";
 
 type CardProps = React.ComponentProps<typeof Card>;

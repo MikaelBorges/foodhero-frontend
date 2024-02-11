@@ -11,7 +11,7 @@ import {
 import { useGetProducts } from "@/hooks/productsHooks";
 import { Loader2 } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { ProductCard } from "../productCard/productCard";
+import { ProductCard } from "@/components/productCard/productCard";
 
 export function ProductList() {
   const pathname = usePathname();

@@ -37,6 +37,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "@types/node": "^20",
     "@types/numeral": "^2.0.5",
     "@types/react": "^18",

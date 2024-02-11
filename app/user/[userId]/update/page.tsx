@@ -18,8 +18,7 @@ import { BackButton } from "@/components/buttons/backButton/backButton";
 import { updateSchema } from "@/schemas/userSchemas";
 
 export default function RegisterPage() {
-  const { data, isPending, isError, mutate } = useUpdateUser();
-  if (data) console.log("data", data);
+  const { data, isSuccess, isPending, isError, mutate } = useUpdateUser();
 
   const form = useForm<z.infer<typeof updateSchema>>({
     resolver: zodResolver(updateSchema),
@@ -110,7 +109,11 @@ export default function RegisterPage() {
               </FormItem>
             )}
           />
-          <Button type="submit" variant="secondary" disabled={isPending}>
+          <Button
+            type="submit"
+            variant="secondary"
+            disabled={isPending || isSuccess}
+          >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             <span>
               {isPending ? "Un instant" : "Valider les modifications"}
@@ -119,9 +122,10 @@ export default function RegisterPage() {
         </form>
       </Form>
       {isError && (
-        <p className="text-red-500">
-          Erreur, la modification de compte a échoué.
-        </p>
+        <p className="text-red-500">La modification de compte a échoué.</p>
+      )}
+      {isSuccess && (
+        <p className="text-green-500 text-center">Compte bien modifié</p>
       )}
     </>
   );

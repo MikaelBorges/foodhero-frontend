@@ -16,9 +16,6 @@ export type LoginParams = {
 export const useConnectUser = () => {
   return useMutation({
     mutationFn: async (credentials: LoginParams) => connectUser(credentials),
-    /* onSuccess: (result) => {
-      console.log("result", result);
-    }, */
   });
 };
 
@@ -34,17 +31,11 @@ export const useRegisterUser = () => {
   return useMutation({
     mutationFn: async (credentials: UserFullParams) =>
       registerUser(credentials),
-    /* onSuccess: (result) => {
-      console.log("result", result);
-    }, */
   });
 };
 
 export const useUpdateUser = () => {
   return useMutation({
     mutationFn: async (credentials: UserFullParams) => updateUser(credentials),
-    /* onSuccess: (result) => {
-      console.log("result", result);
-    }, */
   });
 };

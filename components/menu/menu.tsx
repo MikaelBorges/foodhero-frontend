@@ -55,7 +55,7 @@ export function Menu() {
             onClick={() => setIsMenuOpen(false)}
           >
             <CircleUserRound className="h-4 w-4" />
-            <span>Jane</span>
+            <span>Profil</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setIsMenuOpen(false)}>

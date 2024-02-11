@@ -19,7 +19,6 @@ import { BackButton } from "@/components/buttons/backButton/backButton";
 
 export default function LoginPage() {
   const { data, isPending, isError, mutate } = useConnectUser();
-  if (data) console.log("data", data);
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),

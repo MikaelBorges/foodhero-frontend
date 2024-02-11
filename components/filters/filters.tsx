@@ -9,11 +9,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CategoriesFilter } from "./categories/categoriesFilter";
-import { PricesFilter } from "./prices/pricesFilter";
-import { SortFilter } from "./sort/sortFilter";
-import { TitleFilter } from "./title/titleFilter";
-import { LocationFilter } from "./location/locationFilter";
+import { CategoriesFilter } from "@/components/filters/categories/categoriesFilter";
+import { PricesFilter } from "@/components/filters/prices/pricesFilter";
+import { SortFilter } from "@/components/filters/sort/sortFilter";
+import { TitleFilter } from "@/components/filters/title/titleFilter";
+import { LocationFilter } from "@/components/filters/location/locationFilter";
+import { DevTool } from "@hookform/devtools";
+import { DevModeContext } from "@/contexts/devModeContext";
+import { useContext } from "react";
 
 export function Filters() {
   const { isLoading } = useGetProducts();
@@ -21,6 +24,7 @@ export function Filters() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
+  const devModeCtx = useContext(DevModeContext);
 
   const form = useForm<FilterValues>({
     resolver: zodResolver(filtersSchema),
@@ -77,6 +81,7 @@ export function Filters() {
             Tout effacer
           </Button>
         </div>
+        {devModeCtx.devMode && <DevTool control={form.control} />}
       </form>
     </Form>
   );

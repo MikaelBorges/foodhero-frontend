@@ -166,7 +166,6 @@ export const deleteProduct = async (productId: string) => {
 };
 
 export const createProduct = async (params: any) => {
-  console.log("params", params);
   await waitSeconds(1);
   params.userId = "65bfa48aa82dcb1961c7f5e2";
   const urlSearchParams = new URLSearchParams(

@@ -47,10 +47,7 @@ export default function NewProductPage() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof productSchema>) => {
-    //console.log("values", values);
-    mutate(values);
-  };
+  const onSubmit = (values: z.infer<typeof productSchema>) => mutate(values);
 
   const inputs = [
     {
