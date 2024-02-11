@@ -1,44 +1,60 @@
 "use client";
-import { createContext, useState, useEffect } from "react";
-export type DevModeContextType = {
-  devMode: boolean | null;
-  setDevMode: React.Dispatch<React.SetStateAction<boolean | null>>;
+import React, { useContext, createContext, useState, useEffect } from "react";
+
+interface DevModeContextProps {
+  devMode: boolean;
+  toggleDevMode: () => void;
+}
+
+const DevModeContext = createContext<DevModeContextProps | undefined>(
+  undefined
+);
+
+export const useDevModeContext = () => {
+  const context = useContext(DevModeContext);
+  if (!context) {
+    throw new Error(
+      "useAppContext doit être utilisé à l'intérieur de AppProvider"
+    );
+  }
+  return context;
 };
 
-export type DevModeContextProviderPropsType = {
+interface DevModeProviderProps {
   children: React.ReactNode;
-};
+}
 
-export const DevModeContext = createContext({
-  devMode: null,
-  setDevMode: (value: React.SetStateAction<boolean | null>) => {},
-} as DevModeContextType);
-
-export const DevModeContextProvider = ({
+export const DevModeProvider: React.FC<DevModeProviderProps> = ({
   children,
-}: DevModeContextProviderPropsType) => {
-  const [devMode, setDevMode] = useState<boolean | null>(null);
+}) => {
+  const [devMode, setDevMode] = useState<boolean>(false);
 
+  // Charger la préférence depuis le localStorage lors du chargement initial
   useEffect(() => {
-    const devModeStorage = localStorage.getItem("devModeStorage");
-    if (devModeStorage) {
-      const parsedUserStorage = JSON.parse(devModeStorage);
-      setDevMode(parsedUserStorage);
-    } else {
-      // Si le localStorage ne contient pas d'utilisateur, initialisez-le avec la valeur par défaut (true dans votre cas)
-      setDevMode(false);
+    const savedDevMode = localStorage.getItem("devMode");
+    if (savedDevMode) {
+      setDevMode(JSON.parse(savedDevMode));
     }
-  }, []); // Exécutez l'effet uniquement au montage du composant
+  }, []);
 
+  // Mettre à jour le localStorage lorsque la préférence change
   useEffect(() => {
-    // Stockez l'utilisateur dans le localStorage chaque fois qu'il change
-    if (devMode !== null) {
-      localStorage.setItem("devModeStorage", JSON.stringify(devMode));
-    }
+    localStorage.setItem("devMode", JSON.stringify(devMode));
   }, [devMode]);
 
+  // Fonction pour basculer la préférence
+  const toggleDevMode = () => {
+    setDevMode((prevDevMode) => !prevDevMode);
+  };
+
+  // Contexte à fournir aux composants descendants
+  const contextValue: DevModeContextProps = {
+    devMode,
+    toggleDevMode,
+  };
+
   return (
-    <DevModeContext.Provider value={{ devMode, setDevMode }}>
+    <DevModeContext.Provider value={contextValue}>
       {children}
     </DevModeContext.Provider>
   );

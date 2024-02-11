@@ -15,8 +15,7 @@ import { SortFilter } from "@/components/filters/sort/sortFilter";
 import { TitleFilter } from "@/components/filters/title/titleFilter";
 import { LocationFilter } from "@/components/filters/location/locationFilter";
 import { DevTool } from "@hookform/devtools";
-import { DevModeContext } from "@/contexts/devModeContext";
-import { useContext } from "react";
+import { useDevModeContext } from "@/contexts/devModeContext";
 
 export function Filters() {
   const { isLoading } = useGetProducts();
@@ -24,7 +23,7 @@ export function Filters() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
-  const devModeCtx = useContext(DevModeContext);
+  const { devMode } = useDevModeContext();
 
   const form = useForm<FilterValues>({
     resolver: zodResolver(filtersSchema),
@@ -81,7 +80,7 @@ export function Filters() {
             Tout effacer
           </Button>
         </div>
-        {devModeCtx.devMode && <DevTool control={form.control} />}
+        {devMode && <DevTool control={form.control} />}
       </form>
     </Form>
   );

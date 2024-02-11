@@ -1,15 +1,14 @@
 "use client";
 import { Filters } from "@/components/filters/filters";
 import { ProductList } from "@/components/productList/productList";
-import { DevModeContext } from "@/contexts/devModeContext";
-import { useContext } from "react";
+import { useDevModeContext } from "@/contexts/devModeContext";
 
 export default function RootPage() {
-  const devModeCtx = useContext(DevModeContext);
+  const { devMode, toggleDevMode } = useDevModeContext();
 
   return (
     <>
-      {devModeCtx.devMode && (
+      {devMode && (
         <ol className="list-decimal pl-4 text-red-500">
           <li>
             au clic sur le logo (et sur le bouton retour) les filtres restent

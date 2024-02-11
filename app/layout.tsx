@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { DevModeContextProvider } from "@/contexts/devModeContext";
+import { DevModeProvider } from "@/contexts/devModeContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
-        <DevModeContextProvider>
+        <DevModeProvider>
           <TanstackProvider>
             <ThemeProvider
               attribute="class"
@@ -35,7 +35,7 @@ export default function RootLayout({
               </main>
             </ThemeProvider>
           </TanstackProvider>
-        </DevModeContextProvider>
+        </DevModeProvider>
       </body>
     </html>
   );

@@ -20,7 +20,7 @@ export default function UserPage() {
       <h1 className="text-xl font-semibold tracking-tight">Tableau de bord</h1>
       <ul className="grid gap-3 grid-cols-1 w-full">
         <Link href={`/user/${userId}/products`}>
-          <Card>
+          <Card className="bg-secondary">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-2xl">
                 <Newspaper />
@@ -32,7 +32,7 @@ export default function UserPage() {
           </Card>
         </Link>
         <Link href={`/user/${userId}/update`}>
-          <Card>
+          <Card className="bg-secondary">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-2xl">
                 <CircleUserRound />
@@ -43,7 +43,7 @@ export default function UserPage() {
             <CardContent>Voir mon profil</CardContent>
           </Card>
         </Link>
-        <Card className="text-gray-500">
+        <Card className="bg-secondary text-gray-500">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl">
               <Cog />

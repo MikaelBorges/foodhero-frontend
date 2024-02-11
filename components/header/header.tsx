@@ -8,18 +8,16 @@ import {
   PlusCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { DevModeContext } from "@/contexts/devModeContext";
-import { useContext } from "react";
+import { useDevModeContext } from "@/contexts/devModeContext";
 
 export function Header() {
-  const devModeCtx = useContext(DevModeContext);
+  const { toggleDevMode } = useDevModeContext();
 
   return (
     <header className="z-10 sticky top-0 bg-secondary flex justify-center">
-      <input
-        onChange={() => devModeCtx.setDevMode(!devModeCtx.devMode)}
-        className="fixed top-0 left-0"
-        type="checkbox"
+      <div
+        className="fixed top-0 left-0 w-3 h-3"
+        onClick={() => toggleDevMode()}
       />
       <div className="p-4 flex justify-between w-full max-w-lg items-center">
         <Logo />
