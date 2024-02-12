@@ -80,8 +80,8 @@ export function Filters() {
             Tout effacer
           </Button>
         </div>
-        {devMode && <DevTool control={form.control} />}
       </form>
+      {devMode && <DevTool control={form.control} />}
     </Form>
   );
 }

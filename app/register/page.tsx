@@ -16,18 +16,21 @@ import * as z from "zod";
 import { useRegisterUser } from "@/hooks/userHooks";
 import { BackButton } from "@/components/buttons/backButton/backButton";
 import { registerSchema } from "@/schemas/userSchemas";
+import { useDevModeContext } from "@/contexts/devModeContext";
+import { DevTool } from "@hookform/devtools";
 
 export default function RegisterPage() {
-  const { data, isSuccess, isPending, isError, mutate } = useRegisterUser();
+  const { devMode } = useDevModeContext();
+  const { isSuccess, isPending, isError, mutate } = useRegisterUser();
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      email: "janet.tears@gmail.com",
+      email: "jane.smith@gmail.com",
       firstname: "Janet",
       lastname: "Tears",
       phone: "06 07 08 09 10",
-      password: "1234",
+      password: "pA$$w0rD",
     },
   });
 
@@ -101,7 +104,11 @@ export default function RegisterPage() {
               <FormItem>
                 <FormLabel>Mot de passe</FormLabel>
                 <FormControl>
-                  <Input placeholder="Mot de passe" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="Mot de passe"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -116,12 +123,13 @@ export default function RegisterPage() {
             <span>{isPending ? "Un instant" : "Créer"}</span>
           </Button>
         </form>
+        {devMode && <DevTool control={form.control} />}
       </Form>
       {isError && (
         <p className="text-red-500">Erreur, la création de compte a échoué.</p>
       )}
       {isSuccess && (
-        <p className="text-green-500 text-center">Compte bien soumis</p>
+        <p className="text-green-500 text-center">Compte bien créé</p>
       )}
     </>
   );

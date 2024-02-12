@@ -17,14 +17,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { productSchema } from "@/schemas/productSchema";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { InputTextNumber } from "@/components/inputTextNumber/inputTextNumber";
 import { Loader2 } from "lucide-react";
 import { BackButton } from "@/components/buttons/backButton/backButton";
 import { useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useDevModeContext } from "@/contexts/devModeContext";
+import { DevTool } from "@hookform/devtools";
 
 export default function UpdateProductPage() {
+  const { devMode } = useDevModeContext();
+
   const {
     data: productData,
     isLoading: isLoadingProduct,
@@ -213,6 +216,7 @@ export default function UpdateProductPage() {
               </Button>
             </div>
           </form>
+          {devMode && <DevTool control={form.control} />}
         </Form>
       )}
 

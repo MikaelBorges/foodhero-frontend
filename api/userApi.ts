@@ -9,13 +9,14 @@ export const getPhone = async (userId: string) => {
   return phone;
 };
 
-export const connectUser = async (credentials: LoginParams) => {
+export const loginUser = async (credentials: LoginParams) => {
   await waitSeconds(1);
   return {
     token: "token",
-    id: "id",
+    id: 0,
     firstname: "Jane",
     lastname: "Smith",
+    image: "",
   };
 };
 

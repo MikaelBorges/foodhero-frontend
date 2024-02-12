@@ -14,17 +14,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useConnectUser } from "@/hooks/userHooks";
+import { useLoginUser } from "@/hooks/userHooks";
 import { BackButton } from "@/components/buttons/backButton/backButton";
+import { useDevModeContext } from "@/contexts/devModeContext";
+import { DevTool } from "@hookform/devtools";
 
 export default function LoginPage() {
-  const { data, isPending, isError, mutate } = useConnectUser();
+  const { devMode } = useDevModeContext();
+
+  const { isPending, isError, mutate } = useLoginUser();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "janet.tears@gmail.com",
-      password: "1234",
+      email: "jane.smith@gmail.com",
+      password: "pA$$w0rD",
     },
   });
 
@@ -59,7 +63,11 @@ export default function LoginPage() {
               <FormItem>
                 <FormLabel>Mot de passe</FormLabel>
                 <FormControl>
-                  <Input placeholder="Mot de passe" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="Mot de passe"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -70,6 +78,7 @@ export default function LoginPage() {
             <span>{isPending ? "Un instant" : "Se connecter"}</span>
           </Button>
         </form>
+        {devMode && <DevTool control={form.control} />}
       </Form>
       {isError && (
         <p className="text-red-500">Erreur, la connection a échoué.</p>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 
 interface DevModeContextProps {
   devMode: boolean;
@@ -32,9 +32,7 @@ export const DevModeProvider: React.FC<DevModeProviderProps> = ({
   // Charger la préférence depuis le localStorage lors du chargement initial
   useEffect(() => {
     const savedDevMode = localStorage.getItem("devMode");
-    if (savedDevMode) {
-      setDevMode(JSON.parse(savedDevMode));
-    }
+    if (savedDevMode) setDevMode(JSON.parse(savedDevMode));
   }, []);
 
   // Mettre à jour le localStorage lorsque la préférence change

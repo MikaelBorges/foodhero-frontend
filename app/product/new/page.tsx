@@ -13,15 +13,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { productSchema } from "@/schemas/productSchema";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { removeEmptyValues } from "@/lib/formUtils";
 import { InputTextNumber } from "@/components/inputTextNumber/inputTextNumber";
 import { useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { BackButton } from "@/components/buttons/backButton/backButton";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useDevModeContext } from "@/contexts/devModeContext";
+import { DevTool } from "@hookform/devtools";
 
 export default function NewProductPage() {
+  const { devMode } = useDevModeContext();
+
   const {
     data: categoriesData,
     isLoading: isLoadingCategories,
@@ -156,6 +158,7 @@ export default function NewProductPage() {
             </Button>
           </div>
         </form>
+        {devMode && <DevTool control={form.control} />}
       </Form>
 
       {(isErrorCategories || isErrorCreateProduct) && (
