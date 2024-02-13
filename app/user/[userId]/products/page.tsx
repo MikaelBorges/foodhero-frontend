@@ -13,6 +13,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { usePathname, useSearchParams } from "next/navigation";
+import { PaginationList } from "@/components/paginationNav/paginationNav";
 
 export default function UserProductsPage() {
   const { data, isLoading, isError } = useGetUserProducts();
@@ -20,6 +21,7 @@ export default function UserProductsPage() {
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
   const pageParams = params.page ? Number(params.page) : 1;
+  // TO DO > Ces histoires de range ou pageSize
   const rangeParams = params.range ? Number(params.range) : 10;
   const totalPages = data?.totalProducts
     ? Math.ceil(data.totalProducts / rangeParams)
@@ -52,64 +54,8 @@ export default function UserProductsPage() {
           Erreur lors de la récupération des annonces de l&paos;utilisateur
         </p>
       )}
-      {Boolean(totalPages > 1) && (
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href={{
-                  pathname,
-                  query: { ...params, page: Math.max(1, pageParams - 1) },
-                }}
-                scroll={false}
-              />
-            </PaginationItem>
-            {Array.from({ length: totalPages }, (_, index) => {
-              if (
-                totalPages <= 4 ||
-                (totalPages > 4 && (index <= 2 || index === totalPages - 1))
-              ) {
-                return (
-                  <PaginationItem key={index}>
-                    <PaginationLink
-                      href={{
-                        pathname,
-                        query: {
-                          ...params,
-                          page: index + 1,
-                        },
-                      }}
-                      scroll={false}
-                    >
-                      {index + 1}
-                    </PaginationLink>
-                  </PaginationItem>
-                );
-              } else if (totalPages > 4 && index === 3) {
-                return (
-                  <PaginationItem key={index}>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                );
-              }
-            })}
-            <PaginationItem>
-              <PaginationNext
-                href={{
-                  pathname,
-                  query: {
-                    ...params,
-                    page:
-                      pageParams + 1 <= totalPages
-                        ? pageParams + 1
-                        : pageParams,
-                  },
-                }}
-                scroll={false}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+      {totalPages > 1 && !isLoading && !isError && (
+        <PaginationList totalPages={totalPages} />
       )}
     </>
   );

@@ -6,11 +6,22 @@ import {
   getProductById,
   deleteProduct,
   updateProduct,
-  Categories,
 } from "@/api/productsApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useParams } from "next/navigation";
+
+export const useGetProducts = () => {
+  const searchParams = useSearchParams();
+  const params = Object.fromEntries(searchParams);
+  if (!params.page) params.page = "1";
+  if (!params.sort) params.sort = "desc";
+
+  return useQuery({
+    queryFn: () => getProducts(params),
+    queryKey: ["products", params],
+  });
+};
 
 export const useGetProductById = () => {
   const { productId } = useParams();
@@ -23,29 +34,22 @@ export const useGetProductById = () => {
 
 export const useGetUserProducts = () => {
   const { userId } = useParams();
-
-  return useQuery({
-    queryFn: () => getUserProducts(userId as string),
-    queryKey: ["userProducts", userId],
-  });
-};
-
-export const useGetProducts = () => {
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
-  if (!Object.keys(params).length) params.sort = "desc";
+  if (!params.page) params.page = "1";
 
   return useQuery({
-    queryFn: () => getProducts(params),
-    queryKey: ["products", params],
+    queryFn: () => getUserProducts(params, userId as string),
+    queryKey: ["userProducts", params, userId],
   });
 };
 
-export const useGetCategories = () =>
-  useQuery({
+export const useGetCategories = () => {
+  return useQuery({
     queryFn: () => getCategories(),
     queryKey: ["categories"],
   });
+};
 
 type CreateProductParams = {
   title: string;

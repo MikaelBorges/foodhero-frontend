@@ -63,11 +63,6 @@ type ProductType = {
   location: string;
 };
 
-type GetProductsType = {
-  totalProducts: number;
-  products: ProductCardType[];
-};
-
 type ParamsType = {
   title?: string;
   location?: string;
@@ -76,6 +71,11 @@ type ParamsType = {
   maxPrice?: string;
   categories?: string;
   page?: string;
+};
+
+type GetProductsType = {
+  totalProducts: number;
+  products: ProductCardType[];
 };
 
 type ResponseProducts = {
@@ -98,9 +98,15 @@ export const getProducts = async (
   return { totalProducts, products };
 };
 
-export const getUserProducts = async (userId: string) => {
+export const getUserProducts = async (params: any, userId: string) => {
   await waitSeconds(1);
-  const promise = await fetch(`${API_URL}/products/user/${userId}`);
+  const urlSearchParams = new URLSearchParams(
+    params as Record<string, string>
+  ).toString();
+  const queryParams = urlSearchParams ? `?${urlSearchParams}` : "";
+  const promise = await fetch(
+    `${API_URL}/products/user/${userId}${queryParams}`
+  );
   const response = await promise.json();
   const { totalProducts, productsRaw, firstname } = response;
   const products = usefullProductsKeys(productsRaw);

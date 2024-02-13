@@ -17,6 +17,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useTheme } from "next-themes";
+import { useUserContext } from "@/contexts/userContext";
 
 export default function ProductPage() {
   const [userId, setUserId] = useState<string>("");
@@ -28,6 +29,7 @@ export default function ProductPage() {
   } = useGetPhoneById(userId);
   const [colorTheme, setColorTheme] = useState<string>("");
   const { theme } = useTheme();
+  const { user } = useUserContext();
 
   const style = () => {
     return {
@@ -84,17 +86,14 @@ export default function ProductPage() {
               {data.product.categories.map((category, index) => (
                 <Badge
                   key={`${category}-${index}`}
-                  className="truncate h-fit inline w-fit"
+                  className="truncate h-fit inline w-fit text-md"
                 >
                   {category}
                 </Badge>
               ))}
             </div>
-
-            <p className="text-xs text-muted-foreground">
-              {data.product.location}
-            </p>
-            <h1 className="text-xl font-semibold tracking-tight">
+            <p className="text-muted-foreground">{data.product.location}</p>
+            <h1 className="text-2xl font-semibold tracking-tight">
               {data.product.title}
             </h1>
             <p>{data.product.description}</p>
@@ -114,39 +113,41 @@ export default function ProductPage() {
               Annonces de {data.user.firstname}
             </Link>
           </div>
-          <div className="flex flex-wrap w-full gap-2">
-            {isErrorPhone ? (
-              <p className="text-red-500">
-                problème dans la récupération du n° de téléphone
-              </p>
-            ) : (
-              <>
-                {phone ? (
-                  <a
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                    href={`tel:${phone}`}
-                  >
-                    {phone}
-                  </a>
-                ) : (
-                  <Button onClick={() => setUserId(data.user._id)}>
-                    {isLoadingPhone && (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    <span>
-                      {isLoadingPhone ? "Un instant" : "Voir le numéro"}
-                    </span>
-                  </Button>
-                )}
-              </>
-            )}
-            <Link href={`/product/${data.product._id}/update`}>
-              <Button variant="secondary">Modifier</Button>
-            </Link>
-            <Link href={`/product/${data.product._id}/delete`}>
-              <Button variant="destructive">Supprimer</Button>
-            </Link>
-          </div>
+          {user.isLogged && (
+            <div className="flex flex-wrap w-full gap-2">
+              {isErrorPhone ? (
+                <p className="text-red-500">
+                  problème dans la récupération du n° de téléphone
+                </p>
+              ) : (
+                <>
+                  {phone ? (
+                    <a
+                      className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+                      href={`tel:${phone}`}
+                    >
+                      {phone}
+                    </a>
+                  ) : (
+                    <Button onClick={() => setUserId(data.user._id)}>
+                      {isLoadingPhone && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
+                      <span>
+                        {isLoadingPhone ? "Un instant" : "Voir le numéro"}
+                      </span>
+                    </Button>
+                  )}
+                </>
+              )}
+              <Link href={`/product/${data.product._id}/update`}>
+                <Button variant="secondary">Modifier</Button>
+              </Link>
+              <Link href={`/product/${data.product._id}/delete`}>
+                <Button variant="destructive">Supprimer</Button>
+              </Link>
+            </div>
+          )}
         </>
       )}
       {isLoading && <Loader2 className="animate-spin" />}

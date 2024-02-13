@@ -123,38 +123,42 @@ export function Menu() {
           </>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuLabel>Pages</DropdownMenuLabel>
-        <DropdownMenuItem>
-          <Link
-            href="/user/65bfa48aa82dcb1961c7f5e2"
-            className="flex items-center gap-2 w-full"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <Gauge className="h-4 w-4" />
-            <span>Tableau de bord</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <Link
-            href="/favorites"
-            className="flex items-center gap-2 w-full"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <Heart className="h-4 w-4" />
-            <span>Favoris</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <Link
-            href="/messages"
-            className="flex items-center gap-2 w-full"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <MessageCircleMore className="h-4 w-4" />
-            <span>Messages</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        {user.isLogged && (
+          <>
+            <DropdownMenuLabel>Pages</DropdownMenuLabel>
+            <DropdownMenuItem>
+              <Link
+                href="/user/65bfa48aa82dcb1961c7f5e2"
+                className="flex items-center gap-2 w-full"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Gauge className="h-4 w-4" />
+                <span>Tableau de bord</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem disabled>
+              <Link
+                href="/favorites"
+                className="flex items-center gap-2 w-full"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Heart className="h-4 w-4" />
+                <span>Favoris</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem disabled>
+              <Link
+                href="/messages"
+                className="flex items-center gap-2 w-full"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <MessageCircleMore className="h-4 w-4" />
+                <span>Messages</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
         <DropdownMenuLabel>Thème</DropdownMenuLabel>
         <DropdownMenuItem
           className="flex items-center gap-2 cursor-pointer"

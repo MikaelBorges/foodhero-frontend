@@ -1,5 +1,4 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -26,7 +25,7 @@ export function ProductCard({
   className,
   ...props
 }: ProductCardProps) {
-  const { title, price: rawPrice, image, categories, location, _id } = product;
+  const { title, price: rawPrice, image, location, _id } = product;
   const price = numeral(rawPrice).format("0,0.00");
 
   return (
@@ -38,23 +37,15 @@ export function ProductCard({
         {image && <CardImage imageUrl={image} imageAlt={title} />}
         <CardContent className="p-0 flex flex-col justify-between w-full">
           <CardHeader className="p-4 pb-0">
-            {categories.map((category, index) => (
-              <Badge
-                key={`${category}-${index}`}
-                className="truncate h-fit inline w-fit"
-              >
-                {category}
-              </Badge>
-            ))}
-
-            <CardDescription className="text-xs truncate">
-              {location}
-            </CardDescription>
+            <CardDescription className="truncate">{location}</CardDescription>
+            {/* <CardDescription className="truncate">
+              quartier
+            </CardDescription> */}
           </CardHeader>
           <CardTitle className="break-words text-md line-clamp-2 px-4">
             {title}
           </CardTitle>
-          <CardFooter className="p-4 pt-0 justify-end text-sm">
+          <CardFooter className="p-4 pt-0 justify-end">
             {`${price} €`}
           </CardFooter>
         </CardContent>

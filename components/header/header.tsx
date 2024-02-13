@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Newspaper, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { useDevModeContext } from "@/contexts/devModeContext";
+import { useUserContext } from "@/contexts/userContext";
 
 export function Header() {
   const { toggleDevMode } = useDevModeContext();
+  const { user } = useUserContext();
 
   return (
     <header className="z-10 sticky top-0 bg-secondary flex justify-center">
@@ -15,16 +17,20 @@ export function Header() {
       <div className="p-4 flex justify-between w-full max-w-lg items-center">
         <Logo />
         <div className="flex gap-2">
-          <Link href="/product/new">
-            <Button variant="outline" size="icon">
-              <PlusCircle />
-            </Button>
-          </Link>
-          <Link href="/user/65bfa48aa82dcb1961c7f5e2/products">
-            <Button variant="outline" size="icon">
-              <Newspaper />
-            </Button>
-          </Link>
+          {user.isLogged && (
+            <>
+              <Link href="/product/new">
+                <Button variant="outline" size="icon">
+                  <PlusCircle />
+                </Button>
+              </Link>
+              <Link href="/user/65bfa48aa82dcb1961c7f5e2/products">
+                <Button variant="outline" size="icon">
+                  <Newspaper />
+                </Button>
+              </Link>
+            </>
+          )}
           <Menu />
         </div>
       </div>
