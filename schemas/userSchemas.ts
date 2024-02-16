@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const userFullInfo = {
+const fullInfoUser = {
   firstname: z.string(),
   lastname: z.string(),
   phone: z.string(),
@@ -8,5 +8,5 @@ const userFullInfo = {
   password: z.string(),
 };
 
-export const registerSchema = z.object(userFullInfo);
-export const updateSchema = z.object(userFullInfo);
+export const registerSchema = z.object(fullInfoUser);
+export const updateSchema = z.object(fullInfoUser);

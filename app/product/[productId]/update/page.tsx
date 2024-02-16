@@ -24,6 +24,7 @@ import { useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useDevModeContext } from "@/contexts/devModeContext";
 import { DevTool } from "@hookform/devtools";
+import { mainTitleStyle } from "@/constants/commonStyles";
 
 export default function UpdateProductPage() {
   const { devMode } = useDevModeContext();
@@ -58,8 +59,9 @@ export default function UpdateProductPage() {
     }
   }, [productData, form]);
 
-  const onSubmit = (values: z.infer<typeof productSchema>) => mutate(values);
-
+  const onSubmit = (values: z.infer<typeof productSchema>) => {
+    mutate(values);
+  };
   const inputs = [
     {
       name: "title",
@@ -84,9 +86,7 @@ export default function UpdateProductPage() {
   return (
     <>
       <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">
-        Modifiez votre annonce
-      </h1>
+      <h1 className={mainTitleStyle}>Modifiez votre annonce</h1>
       {productData && !isLoadingProduct && !isErrorProduct && (
         <Form {...form}>
           <form

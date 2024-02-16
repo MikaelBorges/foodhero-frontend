@@ -7,6 +7,7 @@ import {
   deleteProduct,
   updateProduct,
 } from "@/api/productsApi";
+import { ProductType } from "@/types/productTypes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useParams } from "next/navigation";
@@ -23,12 +24,10 @@ export const useGetProducts = () => {
   });
 };
 
-export const useGetProductById = () => {
-  const { productId } = useParams();
-
+export const useGetCategories = () => {
   return useQuery({
-    queryFn: () => getProductById(productId as string),
-    queryKey: ["productId", productId],
+    queryFn: () => getCategories(),
+    queryKey: ["categories"],
   });
 };
 
@@ -44,18 +43,13 @@ export const useGetUserProducts = () => {
   });
 };
 
-export const useGetCategories = () => {
-  return useQuery({
-    queryFn: () => getCategories(),
-    queryKey: ["categories"],
-  });
-};
+export const useGetProductById = () => {
+  const { productId } = useParams();
 
-type CreateProductParams = {
-  title: string;
-  location: string;
-  price: string;
-  categories: string[];
+  return useQuery({
+    queryFn: () => getProductById(productId as string),
+    queryKey: ["productId", productId],
+  });
 };
 
 export const useDeleteProduct = () => {
@@ -70,11 +64,15 @@ export const useDeleteProduct = () => {
   });
 };
 
+/*=======================================*/
+/*=======================================*/
+/*=======================================*/
+
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: CreateProductParams) => createProduct(params),
+    mutationFn: (params: ProductType) => createProduct(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
@@ -86,7 +84,7 @@ export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: CreateProductParams) =>
+    mutationFn: (params: ProductType) =>
       updateProduct(params, productId as string),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });

@@ -1,3 +1,4 @@
+import { categories } from "@/types/productTypes";
 import * as z from "zod";
 
 export const filtersSchema = z.object({
@@ -12,5 +13,6 @@ export const filtersSchema = z.object({
   sort: z
     .enum(["asc", "desc"])
     .refine((value) => ["asc", "desc"].includes(value)),
-  categories: z.array(z.string()),
+  //categories: z.array(z.string()),
+  categories: z.array(z.enum(categories)),
 });

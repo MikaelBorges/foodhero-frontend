@@ -10,6 +10,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import noImageLight from "@/assets/noImageProductLight.jpg";
 import noImageDark from "@/assets/noImageProductDark.jpg";
+import { mainTitleStyle } from "@/constants/commonStyles";
 
 export default function DeleteProductPage() {
   const { data, isLoading, isError } = useGetProductById();
@@ -43,9 +44,7 @@ export default function DeleteProductPage() {
       {!Boolean(idDeleted) && <BackButton />}
       {data && !isLoading && !isError && (
         <>
-          <h1 className="text-xl font-semibold tracking-tight">
-            Etes-vous sûr(e) ?
-          </h1>
+          <h1 className={mainTitleStyle}>Etes-vous sûr(e) ?</h1>
           <div className="flex flex-wrap justify-center gap-2">
             <Link href={`/user/${data.user._id}/products`}>
               <Button>Revenir à mes annonces</Button>
@@ -90,9 +89,7 @@ export default function DeleteProductPage() {
             <p className="text-xs text-muted-foreground">
               {data.product.location}
             </p>
-            <h1 className="text-xl font-semibold tracking-tight">
-              {data.product.title}
-            </h1>
+            <h1 className={mainTitleStyle}>{data.product.title}</h1>
           </div>
         </>
       )}

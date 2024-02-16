@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/pagination";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export function PaginationList({ totalPages }: any) {
+type PaginationListProps = {
+  totalPages: number;
+};
+
+export function PaginationList({ totalPages }: PaginationListProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);

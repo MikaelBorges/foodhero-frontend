@@ -35,7 +35,7 @@ export function Filters() {
       sort: params.sort ? (params.sort as "asc" | "desc") : "desc",
       categories: params.categories ? params.categories.split(",") : [],
     },
-  });
+  }); // WARNING : Problème de type sur categories
 
   const onSubmit = (values: z.infer<typeof filtersSchema>) => {
     const usefulValues = removeEmptyValues(values);

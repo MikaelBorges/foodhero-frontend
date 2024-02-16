@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CircleUserRound, Cog, Newspaper } from "lucide-react";
+import { mainTitleStyle } from "@/constants/commonStyles";
 
 export default function UserPage() {
   const { userId } = useParams();
@@ -17,7 +18,7 @@ export default function UserPage() {
   return (
     <>
       <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">Tableau de bord</h1>
+      <h1 className={mainTitleStyle}>Tableau de bord</h1>
       <ul className="grid gap-3 grid-cols-1 w-full">
         <Link href={`/user/${userId}/products`}>
           <Card className="bg-secondary">

@@ -3,25 +3,15 @@ import { useGetUserProducts } from "@/hooks/productsHooks";
 import { ProductCard } from "@/components/productCard/productCard";
 import { BackButton } from "@/components/buttons/backButton/backButton";
 import { Loader2 } from "lucide-react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { PaginationList } from "@/components/paginationNav/paginationNav";
+import { mainTitleStyle } from "@/constants/commonStyles";
 
 export default function UserProductsPage() {
   const { data, isLoading, isError } = useGetUserProducts();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
-  const pageParams = params.page ? Number(params.page) : 1;
-  // TO DO > Ces histoires de range ou pageSize
+  // TO DO : Ces histoires de range ou pageSize
   const rangeParams = params.range ? Number(params.range) : 10;
   const totalPages = data?.totalProducts
     ? Math.ceil(data.totalProducts / rangeParams)
@@ -31,9 +21,7 @@ export default function UserProductsPage() {
     <>
       <BackButton />
       {data?.firstname && (
-        <h1 className="text-xl font-semibold tracking-tight">
-          Annonce(s) de {data.firstname}
-        </h1>
+        <h1 className={mainTitleStyle}>Annonce(s) de {data.firstname}</h1>
       )}
       {Boolean(data?.totalProducts) && (
         <p className="text-sm">{data?.totalProducts} annonce(s)</p>

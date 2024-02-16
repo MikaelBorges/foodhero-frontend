@@ -20,10 +20,10 @@ import { BackButton } from "@/components/buttons/backButton/backButton";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useDevModeContext } from "@/contexts/devModeContext";
 import { DevTool } from "@hookform/devtools";
+import { mainTitleStyle } from "@/constants/commonStyles";
 
 export default function NewProductPage() {
   const { devMode } = useDevModeContext();
-
   const {
     data: categoriesData,
     isLoading: isLoadingCategories,
@@ -47,7 +47,7 @@ export default function NewProductPage() {
       price: params.price ? params.price : "",
       categories: params.categories ? params.categories.split(",") : [],
     },
-  });
+  }); // WARNING : Problème de type sur categories
 
   const onSubmit = (values: z.infer<typeof productSchema>) => mutate(values);
 
@@ -75,9 +75,7 @@ export default function NewProductPage() {
   return (
     <>
       <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">
-        Déposer une annonce
-      </h1>
+      <h1 className={mainTitleStyle}>Déposer une annonce</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

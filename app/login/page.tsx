@@ -18,10 +18,10 @@ import { useLoginUser } from "@/hooks/userHooks";
 import { BackButton } from "@/components/buttons/backButton/backButton";
 import { useDevModeContext } from "@/contexts/devModeContext";
 import { DevTool } from "@hookform/devtools";
+import { mainTitleStyle } from "@/constants/commonStyles";
 
 export default function LoginPage() {
   const { devMode } = useDevModeContext();
-
   const { isPending, isError, mutate } = useLoginUser();
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     <>
       <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">Se connecter</h1>
+      <h1 className={mainTitleStyle}>Se connecter</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

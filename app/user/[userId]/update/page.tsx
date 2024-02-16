@@ -18,6 +18,7 @@ import { BackButton } from "@/components/buttons/backButton/backButton";
 import { updateSchema } from "@/schemas/userSchemas";
 import { useDevModeContext } from "@/contexts/devModeContext";
 import { DevTool } from "@hookform/devtools";
+import { mainTitleStyle } from "@/constants/commonStyles";
 
 export default function RegisterPage() {
   const { devMode } = useDevModeContext();
@@ -39,9 +40,7 @@ export default function RegisterPage() {
   return (
     <>
       <BackButton />
-      <h1 className="text-xl font-semibold tracking-tight">
-        Modifier mon compte
-      </h1>
+      <h1 className={mainTitleStyle}>Modifier mon compte</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
