@@ -69,7 +69,11 @@ export default function DeleteProductPage() {
             )}
           </div>
           <Image
-            src={data.product.imageThumb ? data.product.imageThumb : noImageUrl}
+            src={
+              data.product.imageThumb.length
+                ? data.product.imageThumb[0]
+                : noImageUrl
+            }
             alt={data.product.title}
             width={500}
             height={500}

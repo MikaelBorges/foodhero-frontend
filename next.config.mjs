@@ -5,6 +5,12 @@ const nextConfig = {
       {
         hostname: "www.themealdb.com",
       },
+      {
+        hostname: "locavor.fr",
+      },
+      {
+        hostname: "bigoven-res.cloudinary.com",
+      },
     ],
   },
   experimental: {

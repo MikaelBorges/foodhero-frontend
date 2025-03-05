@@ -1,6 +1,7 @@
 import { API_URL } from "@/constants/endPoints";
 import type {
   CategoriesType,
+  FilesType,
   ProductCardType,
   ProductRawType,
   ProductType,
@@ -10,6 +11,11 @@ import {
   usefullProductsKeys,
   waitSeconds,
 } from "@/lib/fetchUtils";
+import {
+  createImagesUrls,
+  createProductId,
+  patchImagesUrls,
+} from "./products/create/createProductsApi";
 
 type GetProductsParamsType = {
   title?: string;
@@ -115,28 +121,34 @@ export const deleteProduct = async (productId: string): Promise<number> => {
   return productIdDeleted;
 };
 
-/*=======================================*/
-/*=======================================*/
-/*=======================================*/
-
 type CreateProductParams = ProductType & {
   userId?: string;
 };
 
 export const createProduct = async (
-  params: CreateProductParams
+  textInputs: ProductType,
+  files: FilesType
 ): Promise<number> => {
-  await waitSeconds(1);
-  params.userId = "65bfa48aa82dcb1961c7f5e2";
-  const urlSearchParams = new URLSearchParams(
-    params as unknown as Record<string, string>
-  ).toString();
-  const queryParams = urlSearchParams ? `?${urlSearchParams}` : "";
-  const response = await fetch(`${API_URL}/product/new${queryParams}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-  });
-  const productIdCreated: number = await response.json();
+  const productIdCreated: number = await createProductId(textInputs);
+
+  const isAnyFile = Object.values(files).some(
+    (fileList) => fileList instanceof FileList && fileList.length > 0
+  );
+
+  if (isAnyFile) {
+    const urls: string[] = await createImagesUrls(files);
+    await patchImagesUrls(urls, productIdCreated);
+  }
+
+  /* params.images = ["yes"];
+  if (params.images.length) {
+    const urls: string[] = await createImagesUrls(params.images);
+    await patchImagesUrls(
+      urls,
+      productIdCreated
+    );
+  } */
+
   return productIdCreated;
 };
 

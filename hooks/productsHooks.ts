@@ -7,7 +7,7 @@ import {
   deleteProduct,
   updateProduct,
 } from "@/api/productsApi";
-import { ProductType } from "@/types/productTypes";
+import { FilesType, ProductType } from "@/types/productTypes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useParams } from "next/navigation";
@@ -64,15 +64,13 @@ export const useDeleteProduct = () => {
   });
 };
 
-/*=======================================*/
-/*=======================================*/
-/*=======================================*/
-
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: ProductType) => createProduct(params),
+    mutationFn: (data: { textInputs: ProductType; files: FilesType }) => {
+      return createProduct(data.textInputs, data.files);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },

@@ -26,7 +26,7 @@ export type ProductRawType = {
   strCategory: CategoriesType[];
   strArea: string;
   strInstructions: string;
-  strMealThumb: string;
+  strMealThumb: string[];
   strTags: string;
   strYoutube: string;
   strIngredient1: string;
@@ -86,7 +86,7 @@ export type ProductCardType = {
   price: number;
   categories: CategoriesType[];
   image: string;
-  imageThumb: string;
+  imageThumb: string[];
   location: string;
 };
 
@@ -95,4 +95,11 @@ export type ProductType = {
   location: string;
   price: string;
   title: string;
+  images?: string[];
+};
+
+export type FilesType = {
+  file1?: FileList | undefined;
+  file2?: FileList | undefined;
+  file3?: FileList | undefined;
 };

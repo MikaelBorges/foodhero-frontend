@@ -21,6 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useDevModeContext } from "@/contexts/devModeContext";
 import { DevTool } from "@hookform/devtools";
 import { mainTitleStyle } from "@/constants/commonStyles";
+import { Input } from "@/components/ui/input";
 
 export default function NewProductPage() {
   const { devMode } = useDevModeContext();
@@ -47,9 +48,7 @@ export default function NewProductPage() {
       price: params.price ? params.price : "",
       categories: params.categories ? params.categories.split(",") : [],
     },
-  }); // WARNING : Problème de type sur categories
-
-  const onSubmit = (values: z.infer<typeof productSchema>) => mutate(values);
+  }); // WARNING > Problème de type sur categories
 
   const inputs = [
     {
@@ -72,6 +71,20 @@ export default function NewProductPage() {
     label: category.charAt(0).toUpperCase() + category.slice(1),
   }));
 
+  const fileRef1 = form.register("file1");
+  const fileRef2 = form.register("file2");
+  const fileRef3 = form.register("file3");
+
+  const onSubmit = (values: z.infer<typeof productSchema>) => {
+    const { title, location, price, categories } = values;
+    const textInputs = { title, location, price, categories };
+
+    const { file1, file2, file3 } = values;
+    const files = { file1, file2, file3 };
+
+    mutate({ textInputs, files });
+  };
+
   return (
     <>
       <BackButton />
@@ -81,6 +94,51 @@ export default function NewProductPage() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 rounded-md border p-4 bg-secondary text-right w-full"
         >
+          <FormField
+            control={form.control}
+            name="file1"
+            render={() => {
+              return (
+                <FormItem>
+                  <FormControl>
+                    <Input type="file" {...fileRef1} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="file2"
+            render={() => {
+              return (
+                <FormItem>
+                  <FormControl>
+                    <Input type="file" {...fileRef2} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="file3"
+            render={() => {
+              return (
+                <FormItem>
+                  <FormControl>
+                    <Input type="file" {...fileRef3} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+
           {inputs.map(({ name, placeholder, type }) => (
             <InputTextNumber
               key={name}

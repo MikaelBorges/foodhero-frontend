@@ -69,18 +69,33 @@ export default function ProductPage() {
 
   const noImageUrl = colorTheme === "dark" ? noImageDark : noImageLight;
 
+  const imagesThumb = data?.product.imageThumb;
+
   return (
     <>
       <BackButton />
       {data && !isLoading && !isError && (
         <>
-          <Image
-            src={data.product.imageThumb ? data.product.imageThumb : noImageUrl}
-            alt={data.product.title}
-            width={500}
-            height={500}
-            priority
-          />
+          {imagesThumb?.length ? (
+            imagesThumb?.map((imageThumb, index) => (
+              <Image
+                key={`${imageThumb}-${index}`}
+                src={imageThumb}
+                alt={data.product.title}
+                width={500}
+                height={500}
+                priority
+              />
+            ))
+          ) : (
+            <Image
+              src={noImageUrl}
+              alt={data.product.title}
+              width={500}
+              height={500}
+              priority
+            />
+          )}
           <div className="text-start w-full space-y-2">
             <div className="space-x-1">
               {data.product.categories.map((category, index) => (

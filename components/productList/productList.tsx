@@ -9,7 +9,7 @@ export function ProductList() {
   const searchParams = useSearchParams();
   const params = Object.fromEntries(searchParams);
   const { data, isLoading, isError } = useGetProducts();
-  // TO DO : Ces histoires de range ou pageSize
+  // TO DO > Ces histoires de range ou pageSize
   const rangeParams = params.range ? Number(params.range) : 10;
   const totalPages = data?.totalProducts
     ? Math.ceil(data.totalProducts / rangeParams)

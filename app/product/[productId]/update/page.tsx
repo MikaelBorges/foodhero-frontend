@@ -52,6 +52,7 @@ export default function UpdateProductPage() {
 
   useEffect(() => {
     if (productData?.product) {
+      // WARNING > Ceci provoque une erreur dans la console
       form.setValue("title", productData.product.title);
       form.setValue("location", productData.product.location);
       form.setValue("price", String(productData.product.price));
